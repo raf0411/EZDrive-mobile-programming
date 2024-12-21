@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <!-- Single child of ScrollView -->
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#d6d7d7"
+        tools:context=".views.BookingView">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/backBtn"
+            android:src="@drawable/back_arrow_icon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Book Car"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="32sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/carNameBooking"
+            android:text="Car Name"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="24sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="Hosted by Username"
+            android:id="@+id/carHostDetail"
+            android:textColor="#696565" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="Pick up Location :"
+            android:textColor="#696565" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan,
+    Kec. Pinang, Kota Tangerang, Banten 15143"
+            android:textColor="#696565"
+            android:id="@+id/carLocationDetail" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:id="@+id/carPriceDetail"
+            android:text="Price : Rp. 400.000/day"
+            android:textColor="#696565" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:background="#000" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Booking Date"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="32sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Date"
+            android:layout_marginHorizontal="30dp"
+            android:textColor="#696565"
+            android:layout_marginTop="10dp" />
+
+        <DatePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:id="@+id/startDateInput"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="End Date"
+            android:layout_marginHorizontal="30dp"
+            android:textColor="#696565"
+            android:layout_marginTop="10dp" />
+
+        <DatePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:id="@+id/endDateInput"
+            android:layout_marginTop="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:background="#000" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price Summary"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/totalDaysData"
+            android:text="Total Days : X days"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#696565"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="Subtotal : Rp. xxx.xxx.xxx"
+            android:id="@+id/subTotalPriceData"
+            android:textColor="#696565" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="Tax : Rp. xxx.xxx"
+            android:textColor="#696565"
+            android:id="@+id/taxData"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="30dp"
+            android:id="@+id/totalRentalPrice"
+            android:text="Total Rental Price : Rp. x.xxx.xxx"
+            android:textColor="#696565" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="50dp"
+            android:text="Process Payment"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:backgroundTint="#d6d7d7"
+            app:strokeColor="#0F0FE6"
+            app:strokeWidth="2dp"
+            android:id="@+id/processPaymentBtn"/>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="10dp"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:id="@+id/carImgData"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carNameHistory"
+        android:text="Car Name"
+        android:layout_marginLeft="10dp"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carPriceHistory"
+        android:text="From Rp. Car Price/day"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/carNameData"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carBookedText"
+        android:text="Booked"
+        android:textColor="#AF3306"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Booked Date"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carStartDateBooking"
+        android:text="From : 13/12/2024"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carEndDateBooking"
+        android:text="To : 17/12/2024"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/totalPriceBooking"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"
+        android:layout_marginVertical="10dp"
+        android:text="Total Price : Rp. xx.xxx.xxx"/>
+</LinearLayout>

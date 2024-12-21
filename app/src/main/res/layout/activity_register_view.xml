@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".views.RegisterView"
+        android:layout_gravity="center">
+
+        <!-- Background Image -->
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/login_background"
+            android:scaleType="fitStart"
+            android:layout_alignParentTop="true" />
+
+        <!-- Sign Up Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="300dp"
+            android:textSize="32sp"
+            android:textStyle="bold"/>
+
+        <!-- Username Label -->
+        <TextView
+            android:id="@+id/usernameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="16sp"
+            android:layout_below="@id/backgroundImage"
+            android:layout_marginTop="70dp"
+            android:layout_marginHorizontal="50dp"/>
+
+        <!-- Username EditText -->
+        <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usernameLabel"
+            android:layout_marginTop="8dp"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="50dp"
+            android:inputType="text"
+            android:background="@drawable/edittext_border"
+            android:hint="e.g. Username123"/>
+
+        <!-- Email Label -->
+        <TextView
+            android:id="@+id/emailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="16sp"
+            android:layout_below="@id/usernameEditText"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="50dp"/>
+
+        <!-- Email EditText -->
+        <EditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailLabel"
+            android:layout_marginTop="8dp"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="50dp"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edittext_border"
+            android:hint="e.g. user@example.com"/>
+
+        <!-- Password Label -->
+        <TextView
+            android:id="@+id/passwordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textSize="16sp"
+            android:layout_below="@id/emailEditText"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="50dp"/>
+
+        <!-- Password EditText -->
+        <EditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwordLabel"
+            android:layout_marginTop="8dp"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="50dp"
+            android:inputType="textPassword"
+            android:background="@drawable/edittext_border"
+            android:hint="e.g. yourpassword123"/>
+
+        <!-- Confirm Password Label -->
+        <TextView
+            android:id="@+id/confirmPasswordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm Password"
+            android:textSize="16sp"
+            android:layout_below="@id/passwordEditText"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="50dp"/>
+
+        <!-- Confirm Password EditText -->
+        <EditText
+            android:id="@+id/confirmPasswordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/confirmPasswordLabel"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_border"
+            android:hint="Confirm your password"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            android:textSize="16sp" />
+
+        <!-- Sign Up Button -->
+        <Button
+            android:id="@+id/registerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/confirmPasswordEditText"
+            android:layout_marginTop="32dp"
+            android:text="Sign Up"
+            android:layout_marginHorizontal="50dp"
+            android:textSize="18sp"
+            android:paddingVertical="15dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            app:strokeColor="#0F0FE6"
+            app:strokeWidth="2dp"/>
+
+    </RelativeLayout>
+</ScrollView>
