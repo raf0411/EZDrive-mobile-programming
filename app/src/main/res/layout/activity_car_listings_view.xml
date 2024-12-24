@@ -42,6 +42,7 @@
                 android:text="Username"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:id="@+id/usernameTV"
                 android:textColor="@android:color/black"/>
         </LinearLayout>
 

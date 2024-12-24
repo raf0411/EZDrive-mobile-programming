@@ -1,6 +1,7 @@
 package id.ac.binus.myapplication.views;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 import id.ac.binus.myapplication.R;
 
 public class CarListingsView extends AppCompatActivity {
+    TextView usernameTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +24,10 @@ public class CarListingsView extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        usernameTV = findViewById(R.id.usernameTV);
+
     }
+
+
 }

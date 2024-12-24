@@ -1,28 +1,80 @@
 package id.ac.binus.myapplication.models;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import id.ac.binus.myapplication.database.DatabaseHelper;
+import id.ac.binus.myapplication.utils.RandomIDGenerator;
+import id.ac.binus.myapplication.views.LoginView;
 
 public class User {
     private String userId;
     private String username;
     private String password;
-    private DatabaseHelper databaseHelper;
+    private String email;
+    private DatabaseHelper db;
 
     public User() {
 
     }
 
-    public User(String userId, String username, String password) {
+    public User(String userId, String username, String password, String email) {
         this.userId = userId;
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
-    public void getAllUsers(Context context){
-        databaseHelper = new DatabaseHelper(context);
+    public User getUserByUsername(Context context, String username){
+        db = new DatabaseHelper(context);
 
+        ArrayList<User> users = db.getAllUsers();
+
+        for (int i = 0; i < users.size(); i++){
+            Log.e("User: ", users.get(i).getUsername());
+
+            if(users.get(i).getUsername().equals(username)){
+                String userName = users.get(i).getUsername();
+                String userID = users.get(i).getUserId();
+                String userPassword = users.get(i).getPassword();
+                String userEmail = users.get(i).getEmail();
+
+                User selectedUser = new User(userID, userName, userPassword, userEmail);
+                return selectedUser;
+            }
+        }
+
+        return null;
+    }
+
+    public String register(Context context, String username, String email, String password){
+        db = new DatabaseHelper(context);
+        String userID = RandomIDGenerator.generateRandomID();
+        User user = new User(userID, username, email, password);
+        long result = db.addUser(user);
+
+        if(result != -1){
+            return "User registered successfully!";
+        } else{
+            return "Failed to register user!";
+        }
+    }
+
+    public String login(Context context, String username, String password){
+        User user = getUserByUsername(context, username);
+
+        if (user == null){
+            return "User does not exists!";
+        } else if(!user.getPassword().equals(password)){
+            return "Password is incorrect!";
+        } else {
+            Toast.makeText(context, "Welcome " + user.getUsername() + "!", Toast.LENGTH_SHORT).show();
+            return "Login Success!";
+        }
     }
 
     public String getUserId() {
@@ -47,5 +99,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,8 +38,6 @@ public class LoginView extends AppCompatActivity {
 
         userController = new UserController();
         inputErrorText = findViewById(R.id.inputErrorText);
-        usernameEditText = findViewById(R.id.usernameEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
         loginBtn = findViewById(R.id.loginButton);
         registerLink = findViewById(R.id.registerLink);
 
@@ -53,7 +52,17 @@ public class LoginView extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userController.validateUserLogin(usernameEditText.getText().toString(), passwordEditText.getText().toString(), LoginView.this);
+                usernameEditText = findViewById(R.id.usernameEditText);
+                passwordEditText = findViewById(R.id.passwordEditText);
+
+                String message = userController.validateUserLogin(LoginView.this, usernameEditText.getText().toString(), passwordEditText.getText().toString());
+
+                inputErrorText.setText(message);
+
+                if(message.equals("Login Success!")){
+                    Intent intent = new Intent(LoginView.this, CarListingsView.class);
+                    startActivity(intent);
+                }
             }
         });
     }

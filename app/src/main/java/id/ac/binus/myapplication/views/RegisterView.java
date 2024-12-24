@@ -1,8 +1,13 @@
 package id.ac.binus.myapplication.views;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,11 +16,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import id.ac.binus.myapplication.R;
+import id.ac.binus.myapplication.controllers.UserController;
 
 public class RegisterView extends AppCompatActivity {
 
     EditText usernameEditText, passwordEditText, confirmPasswordEditText, emailEditText;
     Button registerBtn;
+    TextView errorLbl;
+    UserController userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +36,27 @@ public class RegisterView extends AppCompatActivity {
             return insets;
         });
 
-        usernameEditText = findViewById(R.id.usernameEditText);
-        passwordEditText = findViewById(R.id.passwordEditText);
-        confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
-        emailEditText = findViewById(R.id.emailEditText);
         registerBtn = findViewById(R.id.registerBtn);
 
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userController = new UserController();
+                errorLbl = findViewById(R.id.registerErrorLbl);
+                usernameEditText = findViewById(R.id.usernameEditText);
+                passwordEditText = findViewById(R.id.passwordEditText);
+                confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
+                emailEditText = findViewById(R.id.emailEditText);
 
+                String message = userController.validateUserRegister(view.getContext(), usernameEditText.getText().toString(), emailEditText.getText().toString(), passwordEditText.getText().toString(), confirmPasswordEditText.getText().toString());
+
+                errorLbl.setText(message);
+
+                if(message.equals("User registered successfully!")){
+                    Intent intent = new Intent(RegisterView.this, CarListingsView.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 }
