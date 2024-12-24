@@ -1,6 +1,9 @@
 package id.ac.binus.myapplication.views;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -23,6 +26,7 @@ public class CarListingsView extends AppCompatActivity {
     TextView usernameTV;
     RecyclerView carRecyclerView;
     DatabaseHelper databaseHelper;
+    ImageButton bookingHistoryBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class CarListingsView extends AppCompatActivity {
         });
 
         String username = getIntent().getStringExtra("username");
+        bookingHistoryBtn = findViewById(R.id.bookingHistoryBtn);
         usernameTV = findViewById(R.id.usernameTV);
         usernameTV.setText(username);
 
@@ -43,9 +48,27 @@ public class CarListingsView extends AppCompatActivity {
         ArrayList<Car> cars = new ArrayList<Car>();
         databaseHelper = new DatabaseHelper(this);
 
-        cars.add(new Car(R.drawable.tesla, "TS001", "Tesla", "C001", 500000, true));
+        ArrayList<String> rules = new ArrayList<>();
+        rules.add("No Smoking");
+        rules.add("No Pets");
+
+        cars.add(new Car(R.drawable.tesla, "TS001", "Tesla",
+                         "Jeremy Michael",
+                         "Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, \n" +
+                         "Kec. Pinang, Kota Tangerang, Banten 15143",
+                         "Kijang Innova Zenix is the best for cozy & eco-friendly\n" +
+                         "Accelerate your Journey with Remarkable Efficiency!",
+                         7, "Automatic", "CX01", 500000, true, rules));
 
         carRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         carRecyclerView.setAdapter(new CarAdapter(this, cars));
+
+        bookingHistoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CarListingsView.this, BookingHistoryView.class);
+                startActivity(intent);
+            }
+        });
     }
 }
