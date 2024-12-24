@@ -1,6 +1,7 @@
 package id.ac.binus.myapplication.models;
 
 public class Car {
+    private int carImg;
     private String carId;
     private String brand;
     private String model;
@@ -11,7 +12,8 @@ public class Car {
 
     }
 
-    public Car(String carId, String brand, String model, double pricePerDay, Boolean availability) {
+    public Car(int carImg, String carId, String brand, String model, double pricePerDay, Boolean availability) {
+        this.carImg = carImg;
         this.carId = carId;
         this.brand = brand;
         this.model = model;
@@ -57,5 +59,13 @@ public class Car {
 
     public void setAvailability(Boolean availability) {
         this.availability = availability;
+    }
+
+    public int getCarImg() {
+        return carImg;
+    }
+
+    public void setCarImg(int carImg) {
+        this.carImg = carImg;
     }
 }

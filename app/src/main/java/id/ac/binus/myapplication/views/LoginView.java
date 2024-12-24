@@ -54,13 +54,14 @@ public class LoginView extends AppCompatActivity {
             public void onClick(View view) {
                 usernameEditText = findViewById(R.id.usernameEditText);
                 passwordEditText = findViewById(R.id.passwordEditText);
-
-                String message = userController.validateUserLogin(LoginView.this, usernameEditText.getText().toString(), passwordEditText.getText().toString());
+                String username = usernameEditText.getText().toString();
+                String message = userController.validateUserLogin(LoginView.this, username, passwordEditText.getText().toString());
 
                 inputErrorText.setText(message);
 
                 if(message.equals("Login Success!")){
                     Intent intent = new Intent(LoginView.this, CarListingsView.class);
+                    intent.putExtra("username", username);
                     startActivity(intent);
                 }
             }

@@ -3,6 +3,7 @@ package id.ac.binus.myapplication.views;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,13 +48,16 @@ public class RegisterView extends AppCompatActivity {
                 passwordEditText = findViewById(R.id.passwordEditText);
                 confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
                 emailEditText = findViewById(R.id.emailEditText);
-
-                String message = userController.validateUserRegister(view.getContext(), usernameEditText.getText().toString(), emailEditText.getText().toString(), passwordEditText.getText().toString(), confirmPasswordEditText.getText().toString());
+                String username = usernameEditText.getText().toString();
+                String message = userController.validateUserRegister(view.getContext(), username, emailEditText.getText().toString(), passwordEditText.getText().toString(), confirmPasswordEditText.getText().toString());
 
                 errorLbl.setText(message);
 
+                Log.d("tag", "Checking Username: " + username);
+
                 if(message.equals("User registered successfully!")){
                     Intent intent = new Intent(RegisterView.this, CarListingsView.class);
+                    intent.putExtra("username", username);
                     startActivity(intent);
                 }
             }
