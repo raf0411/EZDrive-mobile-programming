@@ -35,6 +35,7 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
     public void bind(Car car) {
         itemView.setOnClickListener(v -> {
             Intent intent = new Intent(itemView.getContext(), CarDetailsView.class);
+            intent.putExtra("carId", car.getCarId());
             intent.putExtra("carBrand", car.getBrand());
             intent.putExtra("carModel", car.getModel());
             intent.putExtra("carHost", car.getHostName());

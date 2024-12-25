@@ -10,6 +10,10 @@ public class UserController {
     public UserController() {
     }
 
+    public User getUserByUsername(Context context, String username){
+        return user.getUserByUsername(context, username);
+    }
+
     public String validateUserLogin(Context context, String username, String password){
         if(username.isEmpty()){
             return "Username cannot be empty!";

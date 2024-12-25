@@ -43,6 +43,7 @@ public class CarDetailsView extends AppCompatActivity {
         String carName = getIntent().getStringExtra("carBrand") + " " + getIntent().getStringExtra("carModel");
         String carHost = "Hosted by " + getIntent().getStringExtra("carHost");
         String carLocation = getIntent().getStringExtra("carLocation");
+        double carActualPrice = getIntent().getDoubleExtra("carPricePerDay", 0.00);
         String carPrice = "Price: Rp." + getIntent().getDoubleExtra("carPricePerDay", 0.00) + " / day";
         String carDescription = getIntent().getStringExtra("carDescription");
         String carSeats = "Seats - " + getIntent().getIntExtra("carSeats", 0);
@@ -78,6 +79,11 @@ public class CarDetailsView extends AppCompatActivity {
 
         bookNowBtn.setOnClickListener(view -> {
             Intent intent = new Intent(CarDetailsView.this, BookingView.class);
+            intent.putExtra("carName", carName);
+            intent.putExtra("carHost", carHost);
+            intent.putExtra("carLocation", carLocation);
+            intent.putExtra("carPrice", carActualPrice);
+
             startActivity(intent);
         });
     }

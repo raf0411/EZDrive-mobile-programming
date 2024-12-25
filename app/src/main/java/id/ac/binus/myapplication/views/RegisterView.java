@@ -56,6 +56,13 @@ public class RegisterView extends AppCompatActivity {
                 Log.d("tag", "Checking Username: " + username);
 
                 if(message.equals("User registered successfully!")){
+                    String userId = userController.getUserByUsername(RegisterView.this, username).getUserId();
+
+                    getSharedPreferences("EZDriveApp", MODE_PRIVATE)
+                            .edit()
+                            .putString("userId", userId)
+                            .apply();
+
                     Intent intent = new Intent(RegisterView.this, CarListingsView.class);
                     intent.putExtra("username", username);
                     startActivity(intent);

@@ -1,6 +1,11 @@
 package id.ac.binus.myapplication.models;
 
+import android.content.Context;
+import android.util.Log;
+
 import java.util.ArrayList;
+
+import id.ac.binus.myapplication.database.DatabaseHelper;
 
 public class Car {
     private int carImg;
@@ -15,6 +20,7 @@ public class Car {
     private double pricePerDay;
     private Boolean availability;
     private ArrayList<String> rules;
+    private DatabaseHelper db;
 
     public Car(){
 
@@ -34,6 +40,36 @@ public class Car {
         this.availability = availability;
         this.rules = rules;
     }
+
+//    public String getCarId(Context context, String carId){
+//        db = new DatabaseHelper(context);
+//
+//        ArrayList<Car> cars = db.getAllCars();
+//
+//        for (int i = 0; i < cars.size(); i++){
+//            Log.e("User: ", cars.get(i).getCarId());
+//
+//            if(cars.get(i).getCarId().equals(carId)){
+//                String carId = cars.get(i);
+//                int carImg = cursor.getInt(cursor.getColumnIndexOrThrow("carImg"));
+//                String carBrand = cursor.getString(cursor.getColumnIndexOrThrow("carBrand"));
+//                String carModel = cursor.getString(cursor.getColumnIndexOrThrow("carModel"));
+//                String hostName = cursor.getString(cursor.getColumnIndexOrThrow("hostName"));
+//                String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
+//                String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+//                int seats = cursor.getInt(cursor.getColumnIndexOrThrow("password"));
+//                String transmission = cursor.getString(cursor.getColumnIndexOrThrow("transmission"));
+//                double pricePerDay = cursor.getDouble(cursor.getColumnIndexOrThrow("pricePerDay"));
+//                boolean availability = cursor.getInt(cursor.getColumnIndexOrThrow("availability")) == 1;
+//                String rules = cursor.getString(cursor.getColumnIndexOrThrow("rules"));
+//
+//
+//                return new Car(carImg, carId, carBrand, hostName, location, description, seats, transmission, carModel, pricePerDay, availability, convertedRules);
+//            }
+//        }
+//
+//        return cars;
+//    }
 
     public String getCarId() {
         return carId;

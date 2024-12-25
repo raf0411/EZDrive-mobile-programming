@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:text="Hosted by Username"
-            android:id="@+id/carHostDetail"
+            android:id="@+id/carHostBooking"
             android:textColor="#696565" />
 
         <TextView
@@ -60,16 +60,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:text="Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan,
-    Kec. Pinang, Kota Tangerang, Banten 15143"
+            android:text="xxx"
             android:textColor="#696565"
-            android:id="@+id/carLocationDetail" />
+            android:id="@+id/carLocationBooking" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:id="@+id/carPriceDetail"
+            android:id="@+id/carPriceBooking"
             android:text="Price : Rp. 400.000/day"
             android:textColor="#696565" />
 

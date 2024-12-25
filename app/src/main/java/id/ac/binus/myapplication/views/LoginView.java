@@ -60,6 +60,13 @@ public class LoginView extends AppCompatActivity {
                 inputErrorText.setText(message);
 
                 if(message.equals("Login Success!")){
+                    String userId = userController.getUserByUsername(LoginView.this, username).getUserId();
+
+                    getSharedPreferences("EZDriveApp", MODE_PRIVATE)
+                            .edit()
+                            .putString("userId", userId)
+                            .apply();
+
                     Intent intent = new Intent(LoginView.this, CarListingsView.class);
                     intent.putExtra("username", username);
                     startActivity(intent);

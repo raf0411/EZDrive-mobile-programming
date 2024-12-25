@@ -32,7 +32,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
-        String carName = cars.get(position).getBrand() + cars.get(position).getModel();
+        String carName = cars.get(position).getBrand() + " " + cars.get(position).getModel();
         String pricePerDay = Double.toString(Math.round(cars.get(position).getPricePerDay()));
         String priceMessage = "From Rp. " + pricePerDay + " / day";
         String availability;

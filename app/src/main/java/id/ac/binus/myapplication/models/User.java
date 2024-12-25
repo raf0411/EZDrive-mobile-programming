@@ -43,8 +43,7 @@ public class User {
                 String userPassword = users.get(i).getPassword();
                 String userEmail = users.get(i).getEmail();
 
-                User selectedUser = new User(userID, userName, userPassword, userEmail);
-                return selectedUser;
+                return new User(userID, userName, userPassword, userEmail);
             }
         }
 
