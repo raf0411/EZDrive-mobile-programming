@@ -35,13 +35,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
         String carName = cars.get(position).getBrand() + " " + cars.get(position).getModel();
         String pricePerDay = Double.toString(Math.round(cars.get(position).getPricePerDay()));
         String priceMessage = "From Rp. " + pricePerDay + " / day";
-        String availability;
-
-        if(cars.get(position).getAvailability()){
-            availability = "Available";
-        }else{
-            availability = "Not Available";
-        }
+        String availability = cars.get(position).getAvailability();
 
         holder.carImg.setImageResource(cars.get(position).getCarImg());
         holder.carBrand.setText(carName);

@@ -18,7 +18,7 @@ public class Car {
     private String transmission;
     private String model;
     private double pricePerDay;
-    private Boolean availability;
+    private String availability;
     private ArrayList<String> rules;
     private DatabaseHelper db;
 
@@ -26,7 +26,7 @@ public class Car {
 
     }
 
-    public Car(int carImg, String carId, String brand, String hostName, String location, String description, int seats, String transmission, String model, double pricePerDay, Boolean availability, ArrayList<String> rules) {
+    public Car(int carImg, String carId, String brand, String hostName, String location, String description, int seats, String transmission, String model, double pricePerDay, String availability, ArrayList<String> rules) {
         this.carImg = carImg;
         this.carId = carId;
         this.brand = brand;
@@ -41,35 +41,10 @@ public class Car {
         this.rules = rules;
     }
 
-//    public String getCarId(Context context, String carId){
-//        db = new DatabaseHelper(context);
-//
-//        ArrayList<Car> cars = db.getAllCars();
-//
-//        for (int i = 0; i < cars.size(); i++){
-//            Log.e("User: ", cars.get(i).getCarId());
-//
-//            if(cars.get(i).getCarId().equals(carId)){
-//                String carId = cars.get(i);
-//                int carImg = cursor.getInt(cursor.getColumnIndexOrThrow("carImg"));
-//                String carBrand = cursor.getString(cursor.getColumnIndexOrThrow("carBrand"));
-//                String carModel = cursor.getString(cursor.getColumnIndexOrThrow("carModel"));
-//                String hostName = cursor.getString(cursor.getColumnIndexOrThrow("hostName"));
-//                String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
-//                String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
-//                int seats = cursor.getInt(cursor.getColumnIndexOrThrow("password"));
-//                String transmission = cursor.getString(cursor.getColumnIndexOrThrow("transmission"));
-//                double pricePerDay = cursor.getDouble(cursor.getColumnIndexOrThrow("pricePerDay"));
-//                boolean availability = cursor.getInt(cursor.getColumnIndexOrThrow("availability")) == 1;
-//                String rules = cursor.getString(cursor.getColumnIndexOrThrow("rules"));
-//
-//
-//                return new Car(carImg, carId, carBrand, hostName, location, description, seats, transmission, carModel, pricePerDay, availability, convertedRules);
-//            }
-//        }
-//
-//        return cars;
-//    }
+    public void updateCarStatus(Context context ,String carId){
+        DatabaseHelper db = new DatabaseHelper(context);
+        db.updateCarStatus(carId);
+    }
 
     public String getCarId() {
         return carId;
@@ -103,11 +78,11 @@ public class Car {
         this.pricePerDay = pricePerDay;
     }
 
-    public Boolean getAvailability() {
+    public String getAvailability() {
         return availability;
     }
 
-    public void setAvailability(Boolean availability) {
+    public void setAvailability(String availability) {
         this.availability = availability;
     }
 

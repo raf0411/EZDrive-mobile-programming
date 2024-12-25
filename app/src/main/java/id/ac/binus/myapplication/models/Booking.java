@@ -17,6 +17,7 @@ public class Booking {
     private double totalPrice;
 
     DatabaseHelper db;
+    Car car = new Car();
 
     public Booking(String bookingId, String userId, String carid, Date startDate, Date endDate, double totalPrice) {
         this.bookingId = bookingId;
@@ -41,6 +42,7 @@ public class Booking {
         long result = db.addBooking(booking);
 
         if(result != -1){
+            car.updateCarStatus(context, carId);
             return "Successful Booking!";
         } else{
             return "Booking Failed!";

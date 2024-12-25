@@ -13,17 +13,13 @@ import id.ac.binus.myapplication.models.Car;
 import id.ac.binus.myapplication.models.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-
-    // Database Name and Version
     private static final String DATABASE_NAME = "EZDriveDB";
     private static final int DATABASE_VERSION = 1;
 
-    // Table Names
     public static final String TABLE_USERS = "Users";
     public static final String TABLE_CARS = "Cars";
     public static final String TABLE_BOOKINGS = "Bookings";
 
-    // Table Creation Statements
     private static final String CREATE_TABLE_USERS =
             "CREATE TABLE " + TABLE_USERS + " (" +
                     "userId TEXT PRIMARY KEY, " +
@@ -44,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "carModel TEXT NOT NULL, " +
                     "carBrand TEXT NOT NULL, " +
                     "pricePerDay DECIMAL NOT NULL, " +
-                    "availability INT NOT NULL)";
+                    "availability TEXT NOT NULL)";
 
     private static final String CREATE_TABLE_BOOKINGS =
             "CREATE TABLE " + TABLE_BOOKINGS + " (" +
@@ -133,7 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int seats = cursor.getInt(cursor.getColumnIndexOrThrow("password"));
                 String transmission = cursor.getString(cursor.getColumnIndexOrThrow("transmission"));
                 double pricePerDay = cursor.getDouble(cursor.getColumnIndexOrThrow("pricePerDay"));
-                boolean availability = cursor.getInt(cursor.getColumnIndexOrThrow("availability")) == 1;
+                String availability = cursor.getString(cursor.getColumnIndexOrThrow("availability"));
                 String rules = cursor.getString(cursor.getColumnIndexOrThrow("rules"));
 
                 ArrayList<String> convertedRules = new ArrayList<>(Arrays.asList(rules.split(",")));
@@ -143,6 +139,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return cars;
+    }
+
+    public void updateCarStatus(String carId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "UPDATE Cars SET availability = 'Not Available' WHERE carId = " + carId;
+
+        db.execSQL(sql);
+        db.close();
     }
 
     @Override

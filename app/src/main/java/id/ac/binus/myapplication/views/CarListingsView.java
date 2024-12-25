@@ -58,7 +58,7 @@ public class CarListingsView extends AppCompatActivity {
                          "Kec. Pinang, Kota Tangerang, Banten 15143",
                          "Kijang Innova Zenix is the best for cozy & eco-friendly\n" +
                          "Accelerate your Journey with Remarkable Efficiency!",
-                         7, "Automatic", "CX01", 500000, true, rules));
+                         7, "Automatic", "CX01", 500000, "Available", rules));
 
         carRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         carRecyclerView.setAdapter(new CarAdapter(this, cars));
