@@ -43,4 +43,25 @@
         android:layout_below="@id/carNameData"
         android:textSize="18sp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/editCarBtn"
+            android:src="@drawable/edit_car_btn"
+            android:background="@color/white" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/deleteCarBtn"
+            android:src="@drawable/delete_car_btn"
+            android:background="@color/white" />
+    </LinearLayout>
+
 </LinearLayout>

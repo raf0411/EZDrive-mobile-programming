@@ -1,6 +1,7 @@
 package id.ac.binus.myapplication.views;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -19,14 +20,17 @@ import java.util.List;
 
 import id.ac.binus.myapplication.R;
 import id.ac.binus.myapplication.adapters.CarAdapter;
+import id.ac.binus.myapplication.controllers.UserController;
 import id.ac.binus.myapplication.database.DatabaseHelper;
 import id.ac.binus.myapplication.models.Car;
+import id.ac.binus.myapplication.models.User;
 
 public class CarListingsView extends AppCompatActivity {
     TextView usernameTV;
     RecyclerView carRecyclerView;
     DatabaseHelper databaseHelper;
-    ImageButton bookingHistoryBtn;
+    ImageButton bookingHistoryBtn, addCarBtn, deleteCarBtn, editCarBtn;
+    UserController userController = new UserController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,13 @@ public class CarListingsView extends AppCompatActivity {
         });
 
         String username = getIntent().getStringExtra("username");
+        User user = userController.getUserByUsername(CarListingsView.this, username);
+        addCarBtn = findViewById(R.id.addCarBtn);
+
+        if(!user.getUsername().equalsIgnoreCase("Admin")){
+            addCarBtn.setVisibility(View.GONE);
+        }
+
         bookingHistoryBtn = findViewById(R.id.bookingHistoryBtn);
         usernameTV = findViewById(R.id.usernameTV);
         usernameTV.setText(username);
@@ -48,20 +59,16 @@ public class CarListingsView extends AppCompatActivity {
         ArrayList<Car> cars = new ArrayList<Car>();
         databaseHelper = new DatabaseHelper(this);
 
-        ArrayList<String> rules = new ArrayList<>();
-        rules.add("No Smoking");
-        rules.add("No Pets");
-
-        cars.add(new Car(R.drawable.tesla, "TS001", "Tesla",
-                         "Jeremy Michael",
-                         "Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, \n" +
-                         "Kec. Pinang, Kota Tangerang, Banten 15143",
-                         "Kijang Innova Zenix is the best for cozy & eco-friendly\n" +
-                         "Accelerate your Journey with Remarkable Efficiency!",
-                         7, "Automatic", "CX01", 500000, "Available", rules));
-
         carRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        carRecyclerView.setAdapter(new CarAdapter(this, cars));
+        carRecyclerView.setAdapter(new CarAdapter(this, cars, username));
+
+        addCarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CarListingsView.this, AddCarView.class);
+                startActivity(intent);
+            }
+        });
 
         bookingHistoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override

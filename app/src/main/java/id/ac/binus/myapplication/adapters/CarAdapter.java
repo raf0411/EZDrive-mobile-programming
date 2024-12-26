@@ -15,32 +15,25 @@ import id.ac.binus.myapplication.models.Car;
 import id.ac.binus.myapplication.viewHolders.CarViewHolder;
 
 public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
-    Context context;
-    ArrayList<Car> cars;
+    private Context context;
+    private ArrayList<Car> cars;
+    private String username; // Add username field
 
-    public CarAdapter(Context context, ArrayList<Car> cars) {
+    public CarAdapter(Context context, ArrayList<Car> cars, String username) {
         this.context = context;
         this.cars = cars;
+        this.username = username; // Assign username
     }
 
     @NonNull
     @Override
     public CarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.car_item, parent, false);
-        return new CarViewHolder(view, context);
+        return new CarViewHolder(view, context, username); // Pass username to ViewHolder
     }
 
     @Override
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
-        String carName = cars.get(position).getBrand() + " " + cars.get(position).getModel();
-        String pricePerDay = Double.toString(Math.round(cars.get(position).getPricePerDay()));
-        String priceMessage = "From Rp. " + pricePerDay + " / day";
-        String availability = cars.get(position).getAvailability();
-
-        holder.carImg.setImageResource(cars.get(position).getCarImg());
-        holder.carBrand.setText(carName);
-        holder.carPricePerDay.setText(priceMessage);
-        holder.availability.setText(availability);
         holder.bind(cars.get(position));
     }
 

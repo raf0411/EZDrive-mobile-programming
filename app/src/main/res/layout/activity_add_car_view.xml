@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.AddCarView"
+    android:background="#d6d7d7">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/addCarBackBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/back_arrow_icon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Car Brand"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/carBrandEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usernameLabel"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="text"
+            android:background="@drawable/edittext_border" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Car Model"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/carModelEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usernameLabel"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="text"
+            android:background="@drawable/edittext_border" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Car Host"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/carHostEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="text"
+            android:background="@drawable/edittext_border" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seats"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/carSeatsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="number"
+            android:text="0"
+            android:background="@drawable/edittext_border" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Transmission"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/carTransmissionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="text"
+            android:background="@drawable/edittext_border"
+            android:hint="Automatic / Manual"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/carLocationEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="text"
+            android:background="@drawable/edittext_border" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/carPriceEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:text="0.00"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edittext_border" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/carDescriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="50dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="text"
+            android:background="@drawable/edittext_border" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rules"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/carRulesEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="10dp"
+            android:inputType="text"
+            android:background="@drawable/edittext_border"
+            android:hint="No Smoking, No Pets, etc."/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/addCarErrorLbl"
+            android:gravity="center"
+            android:layout_marginVertical="10dp"
+            android:textColor="#FF0000"
+            android:layout_marginHorizontal="50dp"
+            android:layout_below="@+id/passwordEditText"/>
+
+        <Button
+            android:id="@+id/addCarBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/passwordEditText"
+            android:text="Add Car"
+            android:layout_marginHorizontal="50dp"
+            android:textSize="18sp"
+            android:paddingVertical="15dp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            app:strokeColor="#0F0FE6"
+            app:strokeWidth="2dp"
+            android:layout_marginBottom="50dp"/>
+    </LinearLayout>
+
+</ScrollView>

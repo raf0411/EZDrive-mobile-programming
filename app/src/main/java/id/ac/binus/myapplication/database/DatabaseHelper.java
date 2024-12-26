@@ -30,7 +30,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_CARS =
             "CREATE TABLE " + TABLE_CARS + " (" +
                     "carId TEXT PRIMARY KEY AUTOINCREMENT, " +
-                    "carImg INT NOT NULL," +
                     "hostName TEXT NOT NULL," +
                     "location TEXT NOT NULL, " +
                     "description TEXT NOT NULL," +
@@ -139,6 +138,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return cars;
+    }
+
+    public long addCar(Car car){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        String rules = String.join(", ", car.getRules());
+
+        cv.put("carId", car.getCarId());
+        cv.put("hostName", car.getHostName());
+        cv.put("location", car.getLocation());
+        cv.put("description", car.getDescription());
+        cv.put("seats", car.getSeats());
+        cv.put("transmission", car.getTransmission());
+        cv.put("rules", rules);
+        cv.put("carModel", car.getModel());
+        cv.put("carBrand", car.getBrand());
+        cv.put("pricePerDay", car.getPricePerDay());
+        cv.put("availability", car.getAvailability());
+
+        long result = db.insert(TABLE_CARS, null, cv);
+        db.close();
+
+        return result;
     }
 
     public void updateCarStatus(String carId){
