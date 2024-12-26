@@ -20,6 +20,7 @@ import java.util.List;
 
 import id.ac.binus.myapplication.R;
 import id.ac.binus.myapplication.adapters.CarAdapter;
+import id.ac.binus.myapplication.controllers.CarController;
 import id.ac.binus.myapplication.controllers.UserController;
 import id.ac.binus.myapplication.database.DatabaseHelper;
 import id.ac.binus.myapplication.models.Car;
@@ -31,6 +32,7 @@ public class CarListingsView extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     ImageButton bookingHistoryBtn, addCarBtn, deleteCarBtn, editCarBtn;
     UserController userController = new UserController();
+    CarController carController = new CarController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,8 @@ public class CarListingsView extends AppCompatActivity {
         usernameTV.setText(username);
 
         carRecyclerView = findViewById(R.id.carRecyclerView);
-        ArrayList<Car> cars = new ArrayList<Car>();
-        databaseHelper = new DatabaseHelper(this);
+
+        ArrayList<Car> cars = carController.getAllCars(CarListingsView.this);;
 
         carRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         carRecyclerView.setAdapter(new CarAdapter(this, cars, username));

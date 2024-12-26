@@ -14,9 +14,13 @@ public class CarController {
 
     }
 
+    public ArrayList<Car> getAllCars(Context context){
+        return car.getAllCars(context);
+    }
+
     public String addCar(Context context, String carBrand, String carModel, String carHost,
                          int carSeats, String carTransmission, String carLocation,
-                         double carPrice, String carDescription, ArrayList<String> carRules){
+                         double carPrice, String carDescription, String carRules){
 
         if(carBrand.isEmpty()){
             return "Car Brand is empty!";
@@ -36,7 +40,7 @@ public class CarController {
             return "Car price must be more than 0.00!";
         } else if(carDescription.isEmpty()){
             return "Car description is empty!";
-        } else if(carRules.isEmpty() || carRules == null){
+        } else if(carRules.isEmpty()){
             return "Car rules is empty!";
         } else {
             return car.addCar(context, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);

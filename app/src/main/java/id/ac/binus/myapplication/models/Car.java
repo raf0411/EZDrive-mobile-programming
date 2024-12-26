@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import id.ac.binus.myapplication.R;
 import id.ac.binus.myapplication.database.DatabaseHelper;
@@ -50,17 +51,27 @@ public class Car {
 
     public String addCar(Context context, String carBrand, String carModel, String carHost,
                          int carSeats, String carTransmission, String carLocation,
-                         double carPrice, String carDescription, ArrayList<String> carRules){
+                         double carPrice, String carDescription, String carRules){
         db = new DatabaseHelper(context);
         String carId = RandomIDGenerator.generateRandomID();
-        Car car = new Car(R.drawable.tesla, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", carRules);
+
+        ArrayList<String> rules = new ArrayList<>(Arrays.asList(carRules.split(",")));;
+
+        Car car = new Car(R.drawable.tesla, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);
+        System.out.println("Adding car with ID: " + carId + ", Brand: " + carBrand);
         long result = db.addCar(car);
+
 
         if(result != -1){
             return "Car added successfully!";
         } else{
             return "Failed to add car!";
         }
+    }
+
+    public ArrayList<Car> getAllCars(Context context){
+        db = new DatabaseHelper(context);
+        return db.getAllCars();
     }
 
     public String getCarId() {

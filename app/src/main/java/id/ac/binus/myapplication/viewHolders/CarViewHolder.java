@@ -1,6 +1,7 @@
 package id.ac.binus.myapplication.viewHolders;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import id.ac.binus.myapplication.R;
 import id.ac.binus.myapplication.models.Car;
+import id.ac.binus.myapplication.views.CarDetailsView;
 
 public class CarViewHolder extends RecyclerView.ViewHolder {
     public ImageView carImg;
@@ -42,5 +44,23 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
         carBrand.setText(car.getBrand());
         carPricePerDay.setText("From Rp. " + car.getPricePerDay() + "/day");
         availability.setText(car.getAvailability());
+
+        itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(itemView.getContext(), CarDetailsView.class);
+
+            intent.putExtra("carImg", car.getCarImg());
+            intent.putExtra("carBrand", car.getBrand());
+            intent.putExtra("carModel", car.getModel());
+            intent.putExtra("carHost", car.getHostName());
+            intent.putExtra("carLocation", car.getLocation());
+            intent.putExtra("carPricePerDay", car.getPricePerDay());
+            intent.putExtra("carDescription", car.getDescription());
+            intent.putExtra("carSeats", car.getSeats());
+            intent.putExtra("carTransmission", car.getTransmission());
+            intent.putExtra("carRules", car.getRules());
+
+            itemView.getContext().startActivity(intent);
+        });
+
     }
 }

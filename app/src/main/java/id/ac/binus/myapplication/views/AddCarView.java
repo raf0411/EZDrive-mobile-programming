@@ -59,6 +59,14 @@ public class AddCarView extends AppCompatActivity {
         addCarBtn = findViewById(R.id.addCarBtn);
         addCarErrorLbl = findViewById(R.id.addCarErrorLbl);
 
+        addCarBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddCarView.this, CarListingsView.class);
+                startActivity(intent);
+            }
+        });
+
         addCarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +78,7 @@ public class AddCarView extends AppCompatActivity {
                 String carLocation = carLocationEditText.getText().toString();
                 double carPrice = Double.parseDouble(carPriceEditText.getText().toString());
                 String carDescription = carDescriptionEditText.getText().toString();
-                ArrayList<String> carRules = new ArrayList<>(Arrays.asList(carRulesEditText.getText().toString().split(",")));;
+                String carRules = carRulesEditText.getText().toString();
 
                 String message = carController.addCar(AddCarView.this, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
                 addCarErrorLbl.setText(message);

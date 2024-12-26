@@ -14,7 +14,7 @@ import id.ac.binus.myapplication.models.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "EZDriveDB";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     public static final String TABLE_USERS = "Users";
     public static final String TABLE_CARS = "Cars";
@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_CARS =
             "CREATE TABLE " + TABLE_CARS + " (" +
-                    "carId TEXT PRIMARY KEY AUTOINCREMENT, " +
+                    "carId TEXT PRIMARY KEY, " +
                     "hostName TEXT NOT NULL," +
                     "location TEXT NOT NULL, " +
                     "description TEXT NOT NULL," +
@@ -39,7 +39,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "carModel TEXT NOT NULL, " +
                     "carBrand TEXT NOT NULL, " +
                     "pricePerDay DECIMAL NOT NULL, " +
-                    "availability TEXT NOT NULL)";
+                    "availability TEXT NOT NULL, " +
+                    "carImg INT NOT NULL)"; // Add this line
+
 
     private static final String CREATE_TABLE_BOOKINGS =
             "CREATE TABLE " + TABLE_BOOKINGS + " (" +
@@ -65,6 +67,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put("password", user.getPassword());
 
         long result = db.insert(TABLE_USERS, null, cv);
+        db.close();
+
+        return result;
+    }
+
+    public long addCar(Car car){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("carId", car.getCarId());
+        cv.put("hostName", car.getHostName());
+        cv.put("location", car.getLocation());
+        cv.put("description", car.getDescription());
+        cv.put("seats", car.getSeats());
+        cv.put("transmission", car.getTransmission());
+        String rules = String.join(", ", car.getRules());
+        cv.put("rules", rules);
+        cv.put("carModel", car.getModel());
+        cv.put("carBrand", car.getBrand());
+        cv.put("pricePerDay", car.getPricePerDay());
+        cv.put("availability", car.getAvailability());
+        cv.put("carImg", car.getCarImg());
+
+        long result = db.insert(TABLE_CARS, null, cv);
         db.close();
 
         return result;
@@ -125,7 +151,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String hostName = cursor.getString(cursor.getColumnIndexOrThrow("hostName"));
                 String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
-                int seats = cursor.getInt(cursor.getColumnIndexOrThrow("password"));
+                int seats = cursor.getInt(cursor.getColumnIndexOrThrow("seats"));
                 String transmission = cursor.getString(cursor.getColumnIndexOrThrow("transmission"));
                 double pricePerDay = cursor.getDouble(cursor.getColumnIndexOrThrow("pricePerDay"));
                 String availability = cursor.getString(cursor.getColumnIndexOrThrow("availability"));
@@ -138,30 +164,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return cars;
-    }
-
-    public long addCar(Car car){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        String rules = String.join(", ", car.getRules());
-
-        cv.put("carId", car.getCarId());
-        cv.put("hostName", car.getHostName());
-        cv.put("location", car.getLocation());
-        cv.put("description", car.getDescription());
-        cv.put("seats", car.getSeats());
-        cv.put("transmission", car.getTransmission());
-        cv.put("rules", rules);
-        cv.put("carModel", car.getModel());
-        cv.put("carBrand", car.getBrand());
-        cv.put("pricePerDay", car.getPricePerDay());
-        cv.put("availability", car.getAvailability());
-
-        long result = db.insert(TABLE_CARS, null, cv);
-        db.close();
-
-        return result;
     }
 
     public void updateCarStatus(String carId){
@@ -181,10 +183,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CARS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BOOKINGS);
-
-        onCreate(db);
+        if (oldVersion < DATABASE_VERSION) { // Adjust based on the changes
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_CARS);
+            db.execSQL(CREATE_TABLE_CARS);
+        }
     }
+
 }
