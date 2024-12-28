@@ -33,7 +33,8 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -41,14 +42,16 @@
             android:layout_marginHorizontal="30dp"
             android:text="Hosted by Username"
             android:id="@+id/carHostDetail"
-            android:textColor="#696565" />
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:text="Pick up Location :"
-            android:textColor="#696565" />
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -57,7 +60,8 @@
             android:text="Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan,
 Kec. Pinang, Kota Tangerang, Banten 15143"
             android:textColor="#696565"
-            android:id="@+id/carLocationDetail" />
+            android:id="@+id/carLocationDetail"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -66,7 +70,8 @@ Kec. Pinang, Kota Tangerang, Banten 15143"
             android:id="@+id/carPriceDetail"
             android:text="Price : Rp. 400.000/day"
             android:layout_marginTop="10dp"
-            android:textColor="#696565" />
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -75,7 +80,8 @@ Kec. Pinang, Kota Tangerang, Banten 15143"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
             android:text="Kijang Innova Zenix is the best for cozy and eco-friendly
-Accelerate your Journey with Remarkable Efficiency!" />
+Accelerate your Journey with Remarkable Efficiency!"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -83,14 +89,16 @@ Accelerate your Journey with Remarkable Efficiency!" />
             android:text="Seats - 7 Seats"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/carSeatsDetail" />
+            android:id="@+id/carSeatsDetail"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Transmission - Automatic"
             android:layout_marginHorizontal="30dp"
-            android:id="@+id/carTransmissionDetail" />
+            android:id="@+id/carTransmissionDetail"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,7 +106,8 @@ Accelerate your Journey with Remarkable Efficiency!" />
             android:text="Rules: No smoking, No Pets."
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/carRulesDetail" />
+            android:id="@+id/carRulesDetail"
+            android:fontFamily="@font/poppins_regular"/>
 
         <Button
             android:layout_width="200dp"
@@ -106,11 +115,12 @@ Accelerate your Journey with Remarkable Efficiency!" />
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:text="Book Now"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/black"
             android:backgroundTint="#d6d7d7"
             app:strokeColor="#0F0FE6"
             app:strokeWidth="2dp"
-            android:id="@+id/bookNowBtn" />
+            android:id="@+id/bookNowBtn"
+            android:fontFamily="@font/poppins_regular"/>
     </LinearLayout>
 </ScrollView>

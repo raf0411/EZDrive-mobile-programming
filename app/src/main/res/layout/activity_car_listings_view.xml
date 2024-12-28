@@ -34,7 +34,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Welcome!"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/poppins_regular"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -43,7 +44,8 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:id="@+id/usernameTV"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black"
+                android:fontFamily="@font/poppins_regular"/>
         </LinearLayout>
 
         <ImageButton
@@ -52,7 +54,7 @@
             android:layout_gravity="end"
             android:background="@color/white"
             android:id="@+id/bookingHistoryBtn"
-            android:src="@drawable/history_icon" />
+            android:src="@drawable/history_icon"/>
     </LinearLayout>
 
     <LinearLayout
@@ -70,7 +72,8 @@
             android:text="Car Listings"
             android:textStyle="bold"
             android:textSize="28sp"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:fontFamily="@font/poppins_regular"/>
 
         <ImageButton
             android:layout_width="50dp"

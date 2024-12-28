@@ -30,7 +30,8 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
-            android:textSize="32sp" />
+            android:textSize="32sp"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -40,21 +41,25 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:fontFamily="@font/poppins_regular"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:text="Hosted by Username"
             android:id="@+id/carHostBooking"
-            android:textColor="#696565" />
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:text="Pick up Location :"
-            android:textColor="#696565" />
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -62,7 +67,8 @@
             android:layout_marginHorizontal="30dp"
             android:text="xxx"
             android:textColor="#696565"
-            android:id="@+id/carLocationBooking" />
+            android:id="@+id/carLocationBooking"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -70,7 +76,8 @@
             android:layout_marginHorizontal="30dp"
             android:id="@+id/carPriceBooking"
             android:text="Price : Rp. 400.000/day"
-            android:textColor="#696565" />
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
 
         <View
             android:layout_width="match_parent"
@@ -86,7 +93,8 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
-            android:textSize="32sp" />
+            android:textSize="32sp"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -94,7 +102,8 @@
             android:text="Start Date"
             android:layout_marginHorizontal="30dp"
             android:textColor="#696565"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_regular"/>
 
         <DatePicker
             android:layout_width="match_parent"
@@ -109,7 +118,8 @@
             android:text="End Date"
             android:layout_marginHorizontal="30dp"
             android:textColor="#696565"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_regular"/>
 
         <DatePicker
             android:layout_width="match_parent"
@@ -132,7 +142,8 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
             android:textStyle="bold"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -141,7 +152,8 @@
             android:text="Total Days : X days"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="10dp"
-            android:textColor="#696565"/>
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -149,7 +161,8 @@
             android:layout_marginHorizontal="30dp"
             android:text="Subtotal : Rp. xxx.xxx.xxx"
             android:id="@+id/subTotalPriceData"
-            android:textColor="#696565" />
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -157,7 +170,8 @@
             android:layout_marginHorizontal="30dp"
             android:text="Tax : Rp. xxx.xxx"
             android:textColor="#696565"
-            android:id="@+id/taxData"/>
+            android:id="@+id/taxData"
+            android:fontFamily="@font/poppins_regular"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -166,7 +180,8 @@
             android:layout_marginTop="30dp"
             android:id="@+id/totalRentalPrice"
             android:text="Total Rental Price : Rp. x.xxx.xxx"
-            android:textColor="#696565" />
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
 
         <Button
             android:layout_width="200dp"
@@ -174,11 +189,12 @@
             android:layout_gravity="center"
             android:layout_marginVertical="50dp"
             android:text="Process Payment"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/black"
             android:backgroundTint="#d6d7d7"
             app:strokeColor="#0F0FE6"
             app:strokeWidth="2dp"
-            android:id="@+id/processPaymentBtn"/>
+            android:id="@+id/processPaymentBtn"
+            android:fontFamily="@font/poppins_regular"/>
     </LinearLayout>
 </ScrollView>
