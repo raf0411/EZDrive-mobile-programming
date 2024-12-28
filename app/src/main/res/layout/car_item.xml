@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_marginBottom="10dp"
-    android:background="@color/white">
+    android:layout_gravity="center_horizontal"
+    android:layout_marginVertical="16dp"
+    android:background="@drawable/rounded_corner_background">
 
     <ImageView
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:id="@+id/carImgData"
         android:layout_marginBottom="20dp"
-        android:layout_gravity="center"
-        />
+        android:layout_gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,7 +23,8 @@
         android:text="Car Name"
         android:layout_marginLeft="10dp"
         android:textSize="24sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins_regular"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,7 +58,7 @@
             android:layout_height="50dp"
             android:id="@+id/editCarBtn"
             android:src="@drawable/edit_car_btn"
-            android:background="@color/white" />
+            android:background="@color/white"/>
 
         <ImageButton
             android:layout_width="50dp"
