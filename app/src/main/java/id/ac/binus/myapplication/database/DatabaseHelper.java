@@ -4,9 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 import id.ac.binus.myapplication.models.Booking;
 import id.ac.binus.myapplication.models.Car;
@@ -40,22 +43,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "carBrand TEXT NOT NULL, " +
                     "pricePerDay DECIMAL NOT NULL, " +
                     "availability TEXT NOT NULL, " +
-                    "carImg INT NOT NULL)"; // Add this line
+                    "carImg INT NOT NULL)";
 
 
     private static final String CREATE_TABLE_BOOKINGS =
-            "CREATE TABLE " + TABLE_BOOKINGS + " (" +
-                    "bookingId TEXT PRIMARY KEY, " +
-                    "userId TEXT NOT NULL, " +
-                    "carId TEXT NOT NULL, " +
-                    "startDate DATE NOT NULL, " +
-                    "endDate DATE NOT NULL, " +
-                    "totalPrice DECIMAL NOT NULL, " +
-                    "FOREIGN KEY(userId) REFERENCES " + TABLE_USERS + "(userId), " +
-                    "FOREIGN KEY(carId) REFERENCES " + TABLE_CARS + "(carId));";
+                "CREATE TABLE " + TABLE_BOOKINGS + " (" +
+                "bookingId TEXT PRIMARY KEY, " +
+                "userId TEXT NOT NULL, " +
+                "carId TEXT NOT NULL, " +
+                "startDate TEXT, " +
+                "endDate TEXT, " +
+                "totalPrice REAL, " +
+                "FOREIGN KEY (userId) REFERENCES " + TABLE_USERS + "(userId), " +
+                "FOREIGN KEY (carId) REFERENCES " + TABLE_CARS + "(carId))";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys = ON;");
     }
 
     public long addUser(User user){
@@ -96,21 +105,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public long addBooking(Booking booking){
+    public long editCar(String carId, String carBrand, String carModel, String carHost,
+                        int carSeats, String carTransmission, String carLocation,
+                        double carPrice, String carDescription, String carRules){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("bookingId", booking.getBookingId());
+
+        cv.put("carBrand", carBrand);
+        cv.put("carModel", carModel);
+        cv.put("hostName", carHost);
+        cv.put("seats", carSeats);
+        cv.put("transmission", carTransmission);
+        cv.put("location", carLocation);
+        cv.put("pricePerDay", carPrice);
+        cv.put("description", carDescription);
+        cv.put("rules", carRules);
+
+        long result = db.update("Cars", cv, "carId = ?", new String[]{carId});
+        db.close();
+
+        return result;
+    }
+
+    public void deleteCar(String carId){
+        System.out.println("Deleting");
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CARS, "carId = ?", new String[]{carId});
+        db.close();
+    }
+
+
+    public long addBooking(Booking booking) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String startDateFormatted = sdf.format(booking.getStartDate());
+        String endDateFormatted = sdf.format(booking.getEndDate());
+
+        cv.put("startDate", startDateFormatted);
+        cv.put("endDate", endDateFormatted);
         cv.put("userId", booking.getUserId());
-        cv.put("carId", booking.getCarid());
-
-        if (booking.getStartDate() != null) {
-            cv.put("startDate", booking.getStartDate().getTime());
-        }
-        if (booking.getEndDate() != null) {
-            cv.put("endDate", booking.getEndDate().getTime());
-        }
-
         cv.put("totalPrice", booking.getTotalPrice());
+        cv.put("carId", booking.getCarid());
+        cv.put("bookingId", booking.getBookingId());
 
         long result = db.insert(TABLE_BOOKINGS, null, cv);
         db.close();
@@ -168,9 +205,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void updateCarStatus(String carId){
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "UPDATE Cars SET availability = 'Not Available' WHERE carId = " + carId;
-
-        db.execSQL(sql);
+        ContentValues cv = new ContentValues();
+        cv.put("availability", "Not Available");
+        db.update("Cars", cv, "carId = ?", new String[]{carId});
+        System.out.println("Car Status Updated!");
         db.close();
     }
 

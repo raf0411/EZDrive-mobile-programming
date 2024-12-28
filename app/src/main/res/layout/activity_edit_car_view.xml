@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <ImageButton
-            android:id="@+id/backAddCarBtn"
+            android:id="@+id/editCarBackbtn"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/back_arrow_icon" />
@@ -220,8 +220,19 @@
             android:background="@drawable/edittext_border"
             android:hint="No Smoking, No Pets, etc."/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/editCarErrorLbl"
+            android:gravity="center"
+            android:layout_marginVertical="10dp"
+            android:textColor="#FF0000"
+            android:layout_marginHorizontal="50dp"
+            android:layout_below="@+id/passwordEditText"/>
+
         <Button
-            android:id="@+id/editCarbtn"
+            android:id="@+id/editCarBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/passwordEditText"

@@ -6,11 +6,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import id.ac.binus.myapplication.R;
+import id.ac.binus.myapplication.adapters.CarAdapter;
+import id.ac.binus.myapplication.controllers.CarController;
 import id.ac.binus.myapplication.models.Car;
 import id.ac.binus.myapplication.views.CarDetailsView;
 
@@ -21,6 +24,8 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
     public TextView availability;
     public ImageButton editCarBtn;
     public ImageButton deleteCarBtn;
+
+    CarController carController = new CarController();
 
     public CarViewHolder(@NonNull View itemView, Context context, String username) {
         super(itemView);
@@ -48,6 +53,7 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(v -> {
             Intent intent = new Intent(itemView.getContext(), CarDetailsView.class);
 
+            intent.putExtra("carId", car.getCarId());
             intent.putExtra("carImg", car.getCarImg());
             intent.putExtra("carBrand", car.getBrand());
             intent.putExtra("carModel", car.getModel());
@@ -61,6 +67,5 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
 
             itemView.getContext().startActivity(intent);
         });
-
     }
 }

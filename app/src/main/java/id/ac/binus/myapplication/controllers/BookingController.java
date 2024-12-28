@@ -17,8 +17,8 @@ public class BookingController {
                                      String carId, double totalPrice){
         Calendar currentDate = Calendar.getInstance();
 
-        if(startDate.before(endDate)){
-            return "End Date must be before Start Date!";
+        if (endDate.before(startDate)) {
+            return "End Date must be after Start Date!";
         } else if(startDate.before(currentDate) || endDate.before(currentDate)){
             return "Start Date or End Date must be before your Current Date!";
         } else {

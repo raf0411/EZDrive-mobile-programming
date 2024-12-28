@@ -77,25 +77,12 @@ public class BookingView extends AppCompatActivity {
         processPaymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!totalRentalPriceData.getText().equals("Total Rental Price : Rp. x.xxx.xxx")){
-                    SharedPreferences prefs = getSharedPreferences("EZDriveApp", MODE_PRIVATE);
-                    String carId = getIntent().getStringExtra("carId");
-                    String userId = prefs.getString("userId", "NONE");
-                    Calendar startDate = Calendar.getInstance();
-                    startDate.set(startDateInput.getYear(), startDateInput.getMonth(), startDateInput.getDayOfMonth());
-                    Calendar endDate = Calendar.getInstance();
-                    endDate.set(endDateInput.getYear(), endDateInput.getMonth(), endDateInput.getDayOfMonth());
-
-                    Intent intent = new Intent(BookingView.this, CarListingsView.class);
-                    String message = bookingController.validateCarBooking(BookingView.this, startDate, endDate, userId, carId, totalRentalPrice);
-                    Toast.makeText(BookingView.this, message, Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
-                }
-
                 long totalDays = calculateDays();
+
                 if (totalDays == 0){
                     totalDays = 1;
                 }
+
                 double subTotal = price * Double.parseDouble(String.valueOf(totalDays));
                 totalRentalPrice = subTotal + TAX;
 
@@ -103,6 +90,22 @@ public class BookingView extends AppCompatActivity {
                 subTotalPriceData.setText("Subtotal: Rp." + subTotal);
                 taxData.setText("Tax: Rp." + TAX);
                 totalRentalPriceData.setText("Total Rental Price: Rp." + totalRentalPrice);
+
+                SharedPreferences prefs = getSharedPreferences("EZDriveApp", MODE_PRIVATE);
+                String carId = getIntent().getStringExtra("carId");
+                String userId = prefs.getString("userId", "NONE");
+                Calendar startDate = Calendar.getInstance();
+                startDate.set(startDateInput.getYear(), startDateInput.getMonth(), startDateInput.getDayOfMonth());
+                Calendar endDate = Calendar.getInstance();
+                endDate.set(endDateInput.getYear(), endDateInput.getMonth(), endDateInput.getDayOfMonth());
+
+                String message = bookingController.validateCarBooking(BookingView.this, startDate, endDate, userId, carId, totalRentalPrice);
+                Toast.makeText(BookingView.this, message, Toast.LENGTH_SHORT).show();
+
+                if(message.equals("Successful Booking!")){
+                    Intent intent = new Intent(BookingView.this, CarListingsView.class);
+                    startActivity(intent);
+                }
             }
         });
     }

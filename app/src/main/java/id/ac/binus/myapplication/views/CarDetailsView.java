@@ -39,6 +39,7 @@ public class CarDetailsView extends AppCompatActivity {
         bookNowBtn = findViewById(R.id.bookNowBtn);
         backBtn = findViewById(R.id.backBtn);
 
+        String carId = getIntent().getStringExtra("carId");
         int carImg = getIntent().getIntExtra("carImg", 0);
         String carName = getIntent().getStringExtra("carBrand") + " " + getIntent().getStringExtra("carModel");
         String carHost = "Hosted by " + getIntent().getStringExtra("carHost");
@@ -50,7 +51,7 @@ public class CarDetailsView extends AppCompatActivity {
         String carTransmission = "Transmission - " + getIntent().getStringExtra("carTransmission");
         ArrayList<String> rules = getIntent().getStringArrayListExtra("carRules");
         assert rules != null;
-        String carRules = "Rules: " + String.join(", ", rules);
+        String carRules = "Rules: " + String.join(",", rules);
 
         carImgDetail = findViewById(R.id.carImgDetail);
         carNameDetail = findViewById(R.id.carNameDetail);
@@ -79,6 +80,7 @@ public class CarDetailsView extends AppCompatActivity {
 
         bookNowBtn.setOnClickListener(view -> {
             Intent intent = new Intent(CarDetailsView.this, BookingView.class);
+            intent.putExtra("carId", carId);
             intent.putExtra("carName", carName);
             intent.putExtra("carHost", carHost);
             intent.putExtra("carLocation", carLocation);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,10 +60,19 @@ public class CarListingsView extends AppCompatActivity {
 
         carRecyclerView = findViewById(R.id.carRecyclerView);
 
-        ArrayList<Car> cars = carController.getAllCars(CarListingsView.this);;
+        RecyclerView carRecyclerView = findViewById(R.id.carRecyclerView);
+        ArrayList<Car> cars = carController.getAllCars(this);
+        CarAdapter carAdapter = new CarAdapter(cars, this, username);
 
         carRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        carRecyclerView.setAdapter(new CarAdapter(this, cars, username));
+        carRecyclerView.setAdapter(carAdapter);
+
+        carAdapter.setOnCarDeletedListener(position -> {
+            carController.deleteCar(this, cars.get(position).getCarId());
+            cars.remove(position);
+            carAdapter.notifyItemRemoved(position);
+            Toast.makeText(this, "Car deleted successfully!", Toast.LENGTH_SHORT).show();
+        });
 
         addCarBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -61,11 +61,29 @@ public class Car {
         System.out.println("Adding car with ID: " + carId + ", Brand: " + carBrand);
         long result = db.addCar(car);
 
-
         if(result != -1){
             return "Car added successfully!";
         } else{
             return "Failed to add car!";
+        }
+    }
+
+    public void deleteCar(Context context, String carId){
+        db = new DatabaseHelper(context);
+        db.deleteCar(carId);
+    }
+
+    public String editCar(Context context, String carId, String carBrand, String carModel, String carHost,
+                          int carSeats, String carTransmission, String carLocation,
+                          double carPrice, String carDescription, String carRules){
+        db = new DatabaseHelper(context);
+
+        long result = db.editCar(carId, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
+
+        if(result != -1){
+            return "Car edited successfully!";
+        } else{
+            return "Failed to edit car!";
         }
     }
 
