@@ -17,9 +17,8 @@
         <ImageView
             android:id="@+id/backgroundImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:src="@drawable/login_background"
-            android:scaleType="fitStart"
             android:layout_alignParentTop="true" />
 
         <TextView
@@ -27,7 +26,7 @@
             android:layout_height="wrap_content"
             android:text="Login In"
             android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="300dp"
+            android:layout_marginVertical="250dp"
             android:textSize="32sp"
             android:textStyle="bold"
             android:fontFamily="@font/poppins_regular"/>
@@ -39,8 +38,8 @@
             android:layout_height="wrap_content"
             android:text="Username"
             android:textSize="16sp"
+            android:layout_marginTop="30dp"
             android:layout_below="@id/backgroundImage"
-            android:layout_marginTop="70dp"
             android:layout_marginHorizontal="50dp"
             android:fontFamily="@font/poppins_regular"/>
 

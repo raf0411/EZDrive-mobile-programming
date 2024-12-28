@@ -1,5 +1,6 @@
 package id.ac.binus.myapplication.views;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -66,15 +67,10 @@ public class BookingView extends AppCompatActivity {
         carPriceBooking.setText(stringPrice);
         carLocationBooking.setText(getIntent().getStringExtra("carLocation"));
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BookingView.this, CarDetailsView.class);
-                startActivity(intent);
-            }
-        });
+        backBtn.setOnClickListener(view -> finish());
 
         processPaymentBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
                 long totalDays = calculateDays();

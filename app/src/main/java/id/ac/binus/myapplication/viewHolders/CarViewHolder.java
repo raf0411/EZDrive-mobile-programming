@@ -45,8 +45,10 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Car car) {
+        String carName = car.getBrand() + " " + car.getModel();
+
         carImg.setImageResource(car.getCarImg());
-        carBrand.setText(car.getBrand());
+        carBrand.setText(carName);
         carPricePerDay.setText("From Rp. " + car.getPricePerDay() + "/day");
         availability.setText(car.getAvailability());
 

@@ -54,11 +54,20 @@ public class Car {
                          double carPrice, String carDescription, String carRules){
         db = new DatabaseHelper(context);
         String carId = RandomIDGenerator.generateRandomID();
+        Car car;
 
         ArrayList<String> rules = new ArrayList<>(Arrays.asList(carRules.split(",")));;
 
-        Car car = new Car(R.drawable.tesla, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);
-        System.out.println("Adding car with ID: " + carId + ", Brand: " + carBrand);
+        if(carBrand.equalsIgnoreCase("Toyota")){
+            car = new Car(R.drawable.toyota_kijang_innova_zenix, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);
+        } else if(carBrand.equalsIgnoreCase("Mitsubishi")){
+            car = new Car(R.drawable.mitsubishi_xpander, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);
+        } else if(carBrand.equalsIgnoreCase("Honda")){
+            car = new Car(R.drawable.honda_brv, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);
+        } else {
+            car = new Car(R.drawable.tesla, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);
+        }
+
         long result = db.addCar(car);
 
         if(result != -1){

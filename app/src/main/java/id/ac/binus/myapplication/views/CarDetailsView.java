@@ -73,10 +73,7 @@ public class CarDetailsView extends AppCompatActivity {
         carTransmissionDetail.setText(carTransmission);
         carRulesDetail.setText(carRules);
 
-        backBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(CarDetailsView.this, CarListingsView.class);
-            startActivity(intent);
-        });
+        backBtn.setOnClickListener(view -> finish());
 
         bookNowBtn.setOnClickListener(view -> {
             Intent intent = new Intent(CarDetailsView.this, BookingView.class);

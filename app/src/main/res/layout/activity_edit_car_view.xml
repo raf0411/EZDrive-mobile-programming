@@ -23,23 +23,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Image"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:fontFamily="@font/poppins_regular"/>
-
-        <ImageButton
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/empty_car_img"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="Car Brand"
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"

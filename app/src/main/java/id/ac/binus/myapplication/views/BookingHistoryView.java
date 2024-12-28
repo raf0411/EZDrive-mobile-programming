@@ -30,12 +30,6 @@ public class BookingHistoryView extends AppCompatActivity {
 
         backBtn = findViewById(R.id.backBtn);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BookingHistoryView.this, CarListingsView.class);
-                startActivity(intent);
-            }
-        });
+        backBtn.setOnClickListener(view -> finish());
     }
 }

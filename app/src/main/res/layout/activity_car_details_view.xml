@@ -18,10 +18,13 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/backBtn"
+            android:contentDescription="TODO"
             android:src="@drawable/back_arrow_icon" />
 
         <ImageView
             android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/mitsubishi_xpander"
             android:layout_height="250dp"
             android:id="@+id/carImgDetail" />
 
