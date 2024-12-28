@@ -1,10 +1,11 @@
 package id.ac.binus.myapplication.database;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+import android.database.sqlite.SQLiteStatement;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -137,28 +138,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public long addBooking(Booking booking) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String startDateFormatted = sdf.format(booking.getStartDate());
         String endDateFormatted = sdf.format(booking.getEndDate());
 
-        cv.put("startDate", startDateFormatted);
-        cv.put("endDate", endDateFormatted);
-        cv.put("userId", booking.getUserId());
-        cv.put("totalPrice", booking.getTotalPrice());
-        cv.put("carId", booking.getCarid());
-        cv.put("bookingId", booking.getBookingId());
+        String sql = "INSERT INTO " + TABLE_BOOKINGS + " (bookingId, userId, carId, startDate, endDate, totalPrice) VALUES(?,?,?,?,?,?)";
+        SQLiteStatement statement = db.compileStatement(sql);
 
-        long result = db.insert(TABLE_BOOKINGS, null, cv);
-        db.close();
+        statement.clearBindings();
+        statement.bindString(1, booking.getBookingId());
+        statement.bindString(2, booking.getUserId());
+        statement.bindString(3, booking.getCarid());
+        statement.bindString(4, startDateFormatted);
+        statement.bindString(5, endDateFormatted);
+        statement.bindDouble(6, booking.getTotalPrice());
 
-        return result;
+        return statement.executeInsert();
     }
 
     public ArrayList<User> getAllUsers(){
-        ArrayList<User> users = new ArrayList<User>();
+        ArrayList<User> users = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Users", null);
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM Users", null);
 
         if(cursor.moveToFirst()){
             do {
@@ -175,9 +176,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Car> getAllCars(){
-        ArrayList<Car> cars = new ArrayList<Car>();
+        ArrayList<Car> cars = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Cars", null);
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM Cars", null);
 
         if(cursor.moveToFirst()){
             do {
