@@ -1,7 +1,6 @@
 package id.ac.binus.myapplication.models;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,7 +55,7 @@ public class Car {
         String carId = RandomIDGenerator.generateRandomID();
         Car car;
 
-        ArrayList<String> rules = new ArrayList<>(Arrays.asList(carRules.split(",")));;
+        ArrayList<String> rules = new ArrayList<>(Arrays.asList(carRules.split(",")));
 
         if(carBrand.equalsIgnoreCase("Toyota")){
             car = new Car(R.drawable.toyota_kijang_innova_zenix, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);

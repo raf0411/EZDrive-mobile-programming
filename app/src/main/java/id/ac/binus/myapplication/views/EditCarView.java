@@ -2,6 +2,7 @@ package id.ac.binus.myapplication.views;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -90,12 +91,14 @@ public class EditCarView extends AppCompatActivity {
             double newCarPrice = Double.parseDouble(carPriceEditText.getText().toString());
             String newCarDescription = carDescriptionEditText.getText().toString();
             String newCarRules = carRulesEditText.getText().toString();
+            SharedPreferences prefs = getSharedPreferences("EZDriveApp", MODE_PRIVATE);
 
             String message = carController.editCar(EditCarView.this, carId, newCarBrand, newCarModel, newCarHost, newCarSeats, newCarTransmission, newCarLocation, newCarPrice, newCarDescription, newCarRules);
             editCarErrorLbl.setText(message);
 
             if (message.equals("Car edited successfully!")) {
                 Intent intent = new Intent(EditCarView.this, CarListingsView.class);
+                intent.putExtra("username", prefs.getString("username", "NONE"));
                 Toast.makeText(this, "Car updated successfully!", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }

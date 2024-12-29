@@ -1,6 +1,7 @@
 package id.ac.binus.myapplication.views;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -79,12 +80,14 @@ public class AddCarView extends AppCompatActivity {
                 double carPrice = Double.parseDouble(carPriceEditText.getText().toString());
                 String carDescription = carDescriptionEditText.getText().toString();
                 String carRules = carRulesEditText.getText().toString();
+                SharedPreferences prefs = getSharedPreferences("EZDriveApp", MODE_PRIVATE);
 
                 String message = carController.addCar(AddCarView.this, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
                 addCarErrorLbl.setText(message);
 
                 if(addCarErrorLbl.getText().equals("Car added successfully!")){
                     Intent intent = new Intent(AddCarView.this, CarListingsView.class);
+                    intent.putExtra("username", prefs.getString("username", "NONE"));
                     Toast.makeText(AddCarView.this, "Add car successful!", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 }

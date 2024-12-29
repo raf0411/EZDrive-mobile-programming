@@ -29,7 +29,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "userId TEXT PRIMARY KEY, " +
                     "username TEXT NOT NULL, " +
                     "email TEXT UNIQUE NOT NULL, " +
-                    "password TEXT UNIQUE NOT NULL)";
+                    "password TEXT UNIQUE NOT NULL, " +
+                    "token TEXT NOT NULL)";
 
     private static final String CREATE_TABLE_CARS =
             "CREATE TABLE " + TABLE_CARS + " (" +
@@ -75,6 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put("username", user.getUsername());
         cv.put("email", user.getEmail());
         cv.put("password", user.getPassword());
+        cv.put("token", user.getToken());
 
         long result = db.insert(TABLE_USERS, null, cv);
         db.close();

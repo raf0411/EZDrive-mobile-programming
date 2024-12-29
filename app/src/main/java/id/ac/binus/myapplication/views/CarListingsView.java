@@ -30,7 +30,6 @@ import id.ac.binus.myapplication.models.User;
 public class CarListingsView extends AppCompatActivity {
     TextView usernameTV, notAvailableTV;
     RecyclerView carRecyclerView;
-    DatabaseHelper databaseHelper;
     ImageButton bookingHistoryBtn, addCarBtn, deleteCarBtn, editCarBtn;
     UserController userController = new UserController();
     CarController carController = new CarController();

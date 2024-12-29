@@ -1,6 +1,7 @@
 package id.ac.binus.myapplication.models;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ public class User {
     private String username;
     private String password;
     private String email;
+    private String token;
     private DatabaseHelper db;
 
     public User() {
@@ -27,6 +29,15 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.token = token;
+    }
+
+    public User(String userId, String username, String password, String email, String token) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.token = token;
     }
 
     public User getUserByUsername(Context context, String username){
@@ -53,7 +64,9 @@ public class User {
     public String register(Context context, String username, String email, String password){
         db = new DatabaseHelper(context);
         String userID = RandomIDGenerator.generateRandomID();
-        User user = new User(userID, username, email, password);
+        SharedPreferences prefs = context.getSharedPreferences("EZDriveApp", Context.MODE_PRIVATE);
+        String deviceToken = prefs.getString("token", "NONE");
+        User user = new User(userID, username, email, password, deviceToken);
         long result = db.addUser(user);
 
         if(result != -1){
@@ -106,5 +119,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

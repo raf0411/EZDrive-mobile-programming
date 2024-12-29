@@ -2,6 +2,7 @@ package id.ac.binus.myapplication.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import id.ac.binus.myapplication.R;
 import id.ac.binus.myapplication.controllers.UserController;
@@ -65,6 +68,11 @@ public class LoginView extends AppCompatActivity {
                     getSharedPreferences("EZDriveApp", MODE_PRIVATE)
                             .edit()
                             .putString("userId", userId)
+                            .apply();
+
+                    getSharedPreferences("EZDriveApp", MODE_PRIVATE)
+                            .edit()
+                            .putString("username", username)
                             .apply();
 
                     Intent intent = new Intent(LoginView.this, CarListingsView.class);
