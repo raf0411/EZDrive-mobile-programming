@@ -1,4 +1,4 @@
-# EZDrive
+# 🚗 EZDrive
 This Repo contains codes for EZDrive, a car rental app as a Final Project for Course Mobile Programming
 
 ## 📝 Why EZDrive?
