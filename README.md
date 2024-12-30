@@ -18,6 +18,9 @@ This app bridges that gap by offering a straightforward solution to browse avail
 * Timothy Ansell Setiadi (2602170745)
 * Raissa Raffi Darmawan (2602177146)
 
+## 🖼️ Designs
+![](https://drive.google.com/file/d/1pv7WRTOG8y7xbMAYjzBTP6ghqVOFIPVu/view?usp=drive_link)
+
 ## ⚙️ Tools
 * Android Studio
 * Java
