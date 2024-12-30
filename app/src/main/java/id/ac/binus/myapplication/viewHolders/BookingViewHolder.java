@@ -15,7 +15,6 @@ import id.ac.binus.myapplication.controllers.CarController;
 import id.ac.binus.myapplication.models.Booking;
 import id.ac.binus.myapplication.models.Car;
 import id.ac.binus.myapplication.views.BookingDetailsView;
-import id.ac.binus.myapplication.views.CarDetailsView;
 
 public class BookingViewHolder extends RecyclerView.ViewHolder{
     public ImageView carImg;
@@ -26,7 +25,7 @@ public class BookingViewHolder extends RecyclerView.ViewHolder{
     public TextView carBookTotalPrice;
     CarController carController = new CarController();
 
-    public BookingViewHolder(@NonNull View itemView, Context context) {
+    public BookingViewHolder(@NonNull View itemView) {
         super(itemView);
 
         this.carImg = itemView.findViewById(R.id.carBookingImgData);

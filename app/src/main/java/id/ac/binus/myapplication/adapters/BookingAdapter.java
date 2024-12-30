@@ -9,19 +9,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import id.ac.binus.myapplication.R;
 import id.ac.binus.myapplication.models.Booking;
 import id.ac.binus.myapplication.viewHolders.BookingViewHolder;
-import id.ac.binus.myapplication.viewHolders.CarViewHolder;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingViewHolder> {
-    private ArrayList<Booking> bookings;
-    private Context context;
+    private final ArrayList<Booking> bookings;
+    private final Context context;
 
     public BookingAdapter(ArrayList<Booking> bookings, Context context) {
         this.bookings = bookings;
@@ -32,7 +29,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingViewHolder> {
     @Override
     public BookingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.booking_item, parent, false);
-        return new BookingViewHolder(view, context);
+        return new BookingViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")

@@ -1,8 +1,6 @@
 package id.ac.binus.myapplication.views;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,12 +35,10 @@ public class BookingDetailsView extends AppCompatActivity {
 
         backBtn = findViewById(R.id.backBtn);
 
-        String carId = getIntent().getStringExtra("carId");
         int carImg = getIntent().getIntExtra("carImg", 0);
         String carName = getIntent().getStringExtra("carBrand") + " " + getIntent().getStringExtra("carModel");
         String carHost = "Hosted by " + getIntent().getStringExtra("carHost");
         String carLocation = getIntent().getStringExtra("carLocation");
-        double carActualPrice = getIntent().getDoubleExtra("carPricePerDay", 0.00);
         String carPrice = "Price: Rp." + getIntent().getDoubleExtra("carPricePerDay", 0.00) + " / day";
         String carDescription = getIntent().getStringExtra("carDescription");
         String carSeats = "Seats - " + getIntent().getIntExtra("carSeats", 0);

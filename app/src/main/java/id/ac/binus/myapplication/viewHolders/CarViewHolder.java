@@ -1,19 +1,15 @@
 package id.ac.binus.myapplication.viewHolders;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import id.ac.binus.myapplication.R;
-import id.ac.binus.myapplication.adapters.CarAdapter;
-import id.ac.binus.myapplication.controllers.CarController;
 import id.ac.binus.myapplication.models.Car;
 import id.ac.binus.myapplication.views.CarDetailsView;
 
@@ -25,9 +21,7 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
     public ImageButton editCarBtn;
     public ImageButton deleteCarBtn;
 
-    CarController carController = new CarController();
-
-    public CarViewHolder(@NonNull View itemView, Context context, String username) {
+    public CarViewHolder(@NonNull View itemView, String username) {
         super(itemView);
 
         this.carImg = itemView.findViewById(R.id.carImgData);

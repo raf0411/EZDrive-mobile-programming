@@ -1,6 +1,5 @@
 package id.ac.binus.myapplication.views;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,7 +48,7 @@ public class BookingHistoryView extends AppCompatActivity {
 
         ArrayList<Booking> bookings = bookingController.getAllBookings(this, userId);
 
-        if(bookings.isEmpty() || bookings == null){
+        if(bookings.isEmpty()){
             noBookingsTV.setVisibility(View.VISIBLE);
             bookingHistoryList.setVisibility(View.GONE);
         } else{

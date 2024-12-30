@@ -19,9 +19,9 @@ import id.ac.binus.myapplication.views.EditCarView;
 
 public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
-    private List<Car> cars; // Use List for flexibility
-    private Context context;
-    private String username;
+    private final List<Car> cars; // Use List for flexibility
+    private final Context context;
+    private final String username;
     private OnCarDeletedListener onCarDeletedListener;
 
     public CarAdapter(List<Car> cars, Context context, String username) {
@@ -38,27 +38,22 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
         this.onCarDeletedListener = listener;
     }
 
-    public void updateCars(List<Car> updatedCars) {
-        this.cars.clear();
-        this.cars.addAll(updatedCars);
-        notifyDataSetChanged();
-    }
-
     @NonNull
     @Override
     public CarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.car_item, parent, false);
-        return new CarViewHolder(view, context, username);
+        return new CarViewHolder(view, username);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
         Car car = cars.get(position);
         String carName = car.getBrand() + " " + car.getModel();
+        String carPrice = "From Rp. " + car.getPricePerDay() + "/day";
 
         holder.carImg.setImageResource(car.getCarImg());
         holder.carBrand.setText(carName);
-        holder.carPricePerDay.setText("From Rp. " + car.getPricePerDay() + "/day");
+        holder.carPricePerDay.setText(carPrice);
         holder.availability.setText(car.getAvailability());
 
         if (holder.availability.getText().equals("Not Available")) {

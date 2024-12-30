@@ -1,7 +1,6 @@
 package id.ac.binus.myapplication.views;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,13 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import id.ac.binus.myapplication.R;
 import id.ac.binus.myapplication.adapters.CarAdapter;
 import id.ac.binus.myapplication.controllers.CarController;
 import id.ac.binus.myapplication.controllers.UserController;
-import id.ac.binus.myapplication.database.DatabaseHelper;
 import id.ac.binus.myapplication.models.Car;
 import id.ac.binus.myapplication.models.User;
 
@@ -71,7 +68,7 @@ public class CarListingsView extends AppCompatActivity {
             carRecyclerView.setVisibility(View.VISIBLE);
             notAvailableTV.setVisibility(View.GONE);
 
-            CarAdapter carAdapter = new CarAdapter(new ArrayList<>(cars), this, username);
+            CarAdapter carAdapter = new CarAdapter(cars, this, username);
             carRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             carRecyclerView.setAdapter(carAdapter);
 

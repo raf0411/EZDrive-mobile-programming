@@ -6,25 +6,18 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.io.IOException;
-
 import id.ac.binus.myapplication.views.LoginView;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,12 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
         startNowBtn = findViewById(R.id.startNowBtn);
 
-        startNowBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent toLoginPage = new Intent(MainActivity.this, LoginView.class);
-                startActivity(toLoginPage);
-            }
+        startNowBtn.setOnClickListener(view -> {
+            Intent toLoginPage = new Intent(MainActivity.this, LoginView.class);
+            startActivity(toLoginPage);
         });
     }
 
@@ -73,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Permission Already granted");
                 getDeviceToken();
             } else if(shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)){
-                // Explain to user
+                Toast.makeText(this, "Notification should be on to receive messages!", Toast.LENGTH_SHORT).show();
             } else{
                 resultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
             }
@@ -86,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e("FirebaseDebug", "Fetching FCM Token Failed ", task.getException());
-                return;
             } else{
                 String token = task.getResult();
                 getSharedPreferences("EZDriveApp", MODE_PRIVATE)

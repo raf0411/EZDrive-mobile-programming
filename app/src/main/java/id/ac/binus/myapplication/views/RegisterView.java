@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,34 +37,37 @@ public class RegisterView extends AppCompatActivity {
 
         registerBtn = findViewById(R.id.registerBtn);
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userController = new UserController();
-                errorLbl = findViewById(R.id.registerErrorLbl);
-                usernameEditText = findViewById(R.id.usernameEditText);
-                passwordEditText = findViewById(R.id.passwordEditText);
-                confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
-                emailEditText = findViewById(R.id.emailEditText);
-                String username = usernameEditText.getText().toString();
-                String message = userController.validateUserRegister(view.getContext(), username, emailEditText.getText().toString(), passwordEditText.getText().toString(), confirmPasswordEditText.getText().toString());
+        registerBtn.setOnClickListener(view -> {
+            userController = new UserController();
+            errorLbl = findViewById(R.id.registerErrorLbl);
+            usernameEditText = findViewById(R.id.usernameEditText);
+            passwordEditText = findViewById(R.id.passwordEditText);
+            confirmPasswordEditText = findViewById(R.id.confirmPasswordEditText);
+            emailEditText = findViewById(R.id.emailEditText);
+            String username = usernameEditText.getText().toString();
+            String message = userController.validateUserRegister(view.getContext(), username, emailEditText.getText().toString(), passwordEditText.getText().toString(), confirmPasswordEditText.getText().toString());
 
-                errorLbl.setText(message);
+            errorLbl.setText(message);
 
-                Log.d("tag", "Checking Username: " + username);
+            Log.d("tag", "Checking Username: " + username);
 
-                if(message.equals("User registered successfully!")){
-                    String userId = userController.getUserByUsername(RegisterView.this, username).getUserId();
+            if(message.equals("User registered successfully!")){
+                errorLbl.setTextColor(Color.parseColor("#00FF00"));
+                String userId = userController.getUserByUsername(RegisterView.this, username).getUserId();
 
-                    getSharedPreferences("EZDriveApp", MODE_PRIVATE)
-                            .edit()
-                            .putString("userId", userId)
-                            .apply();
+                getSharedPreferences("EZDriveApp", MODE_PRIVATE)
+                        .edit()
+                        .putString("userId", userId)
+                        .apply();
 
-                    Intent intent = new Intent(RegisterView.this, CarListingsView.class);
-                    intent.putExtra("username", username);
-                    startActivity(intent);
-                }
+                getSharedPreferences("EZDriveApp", MODE_PRIVATE)
+                        .edit()
+                        .putString("username", username)
+                        .apply();
+
+                Intent intent = new Intent(RegisterView.this, CarListingsView.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
             }
         });
     }

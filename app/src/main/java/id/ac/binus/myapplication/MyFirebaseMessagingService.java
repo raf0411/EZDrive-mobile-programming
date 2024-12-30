@@ -4,16 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
-import android.os.IBinder;
 
-import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -22,7 +18,7 @@ import com.google.firebase.messaging.RemoteMessage;
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
-    private static final String TAG = "MyFirebaseMsgService";
+//    private static final String TAG = "MyFirebaseMsgService";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -57,18 +53,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    channelId,
-                    "High Priority Notifications",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            channel.setDescription("This channel is used for high-priority notifications.");
-            channel.enableLights(true);
-            channel.setLightColor(Color.RED);
-            channel.enableVibration(true);
-            notificationManager.createNotificationChannel(channel);
-        }
+        NotificationChannel channel = new NotificationChannel(
+                channelId,
+                "High Priority Notifications",
+                NotificationManager.IMPORTANCE_HIGH
+        );
+        channel.setDescription("This channel is used for high-priority notifications.");
+        channel.enableLights(true);
+        channel.setLightColor(Color.RED);
+        channel.enableVibration(true);
+        notificationManager.createNotificationChannel(channel);
 
         notificationManager.notify(0, notificationBuilder.build());
     }

@@ -2,12 +2,8 @@ package id.ac.binus.myapplication.views;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,11 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import id.ac.binus.myapplication.R;
 import id.ac.binus.myapplication.controllers.CarController;
 
@@ -60,37 +51,32 @@ public class AddCarView extends AppCompatActivity {
         addCarBtn = findViewById(R.id.addCarBtn);
         addCarErrorLbl = findViewById(R.id.addCarErrorLbl);
 
-        addCarBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AddCarView.this, CarListingsView.class);
-                startActivity(intent);
-            }
+        addCarBackBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(AddCarView.this, CarListingsView.class);
+            startActivity(intent);
         });
 
-        addCarBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String carBrand = carBrandEditText.getText().toString();
-                String carModel = carModelEditText.getText().toString();
-                String carHost = carHostEditText.getText().toString();
-                int carSeats = Integer.parseInt(carSeatsEditText.getText().toString());
-                String carTransmission = carTransmissionEditText.getText().toString();
-                String carLocation = carLocationEditText.getText().toString();
-                double carPrice = Double.parseDouble(carPriceEditText.getText().toString());
-                String carDescription = carDescriptionEditText.getText().toString();
-                String carRules = carRulesEditText.getText().toString();
-                SharedPreferences prefs = getSharedPreferences("EZDriveApp", MODE_PRIVATE);
+        addCarBtn.setOnClickListener(view -> {
+            String carBrand = carBrandEditText.getText().toString();
+            String carModel = carModelEditText.getText().toString();
+            String carHost = carHostEditText.getText().toString();
+            int carSeats = Integer.parseInt(carSeatsEditText.getText().toString());
+            String carTransmission = carTransmissionEditText.getText().toString();
+            String carLocation = carLocationEditText.getText().toString();
+            double carPrice = Double.parseDouble(carPriceEditText.getText().toString());
+            String carDescription = carDescriptionEditText.getText().toString();
+            String carRules = carRulesEditText.getText().toString();
+            SharedPreferences prefs = getSharedPreferences("EZDriveApp", MODE_PRIVATE);
 
-                String message = carController.addCar(AddCarView.this, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
-                addCarErrorLbl.setText(message);
+            String message = carController.addCar(AddCarView.this, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
+            addCarErrorLbl.setText(message);
 
-                if(addCarErrorLbl.getText().equals("Car added successfully!")){
-                    Intent intent = new Intent(AddCarView.this, CarListingsView.class);
-                    intent.putExtra("username", prefs.getString("username", "NONE"));
-                    Toast.makeText(AddCarView.this, "Add car successful!", Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
-                }
+            if(addCarErrorLbl.getText().equals("Car added successfully!")){
+                addCarErrorLbl.setTextColor(Color.parseColor("#454B1B"));
+                Intent intent = new Intent(AddCarView.this, CarListingsView.class);
+                intent.putExtra("username", prefs.getString("username", "NONE"));
+                Toast.makeText(AddCarView.this, "Add car successful!", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
             }
         });
     }

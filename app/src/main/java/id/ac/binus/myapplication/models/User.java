@@ -2,7 +2,6 @@ package id.ac.binus.myapplication.models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 
 import id.ac.binus.myapplication.database.DatabaseHelper;
 import id.ac.binus.myapplication.utils.RandomIDGenerator;
-import id.ac.binus.myapplication.views.LoginView;
 
 public class User {
     private String userId;
@@ -29,7 +27,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.token = token;
     }
 
     public User(String userId, String username, String password, String email, String token) {
@@ -93,9 +90,6 @@ public class User {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getUsername() {
         return username;
@@ -109,23 +103,12 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getToken() {
         return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

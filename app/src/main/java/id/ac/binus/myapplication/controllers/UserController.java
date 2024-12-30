@@ -20,13 +20,12 @@ public class UserController {
         } else if(password.isEmpty()){
             return "Password cannot be empty!";
         } else {
-            String message = user.login(context, username, password);
-            return message;
+            return user.login(context, username, password);
         }
     }
 
     public String validateUserRegister(Context context, String username, String email, String password, String confirmPassword){
-        String message = "";
+        String message;
 
         if(username.isEmpty()){
             message = "Username can't be empty!";

@@ -117,80 +117,41 @@ public class Car {
         return brand;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
 
     public String getModel() {
         return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
     }
 
     public double getPricePerDay() {
         return pricePerDay;
     }
 
-    public void setPricePerDay(double pricePerDay) {
-        this.pricePerDay = pricePerDay;
-    }
-
     public String getAvailability() {
         return availability;
-    }
-
-    public void setAvailability(String availability) {
-        this.availability = availability;
     }
 
     public int getCarImg() {
         return carImg;
     }
 
-    public void setCarImg(int carImg) {
-        this.carImg = carImg;
-    }
-
     public String getHostName() {
         return hostName;
-    }
-
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
     }
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public int getSeats() {
         return seats;
     }
 
-    public void setSeats(int seats) {
-        this.seats = seats;
-    }
-
     public String getTransmission() {
         return transmission;
-    }
-
-    public void setTransmission(String transmission) {
-        this.transmission = transmission;
     }
 
     public ArrayList<String> getRules() {

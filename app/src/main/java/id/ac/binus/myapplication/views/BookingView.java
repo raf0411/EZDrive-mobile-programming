@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,9 +24,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -114,14 +110,16 @@ public class BookingView extends AppCompatActivity {
                 if(message.equals("Successful Booking!")){
                     Intent intent = new Intent(BookingView.this, CarListingsView.class);
                     intent.putExtra("username", prefs.getString("username", "NONE"));
-                    sendNotification("Booking Confirmed", "Your car booking has been successfully processed!");
+                    sendNotification();
                     startActivity(intent);
                 }
             }
         });
     }
 
-    private void sendNotification(String title, String body) {
+    private void sendNotification() {
+        String title = "Booking Confirmed";
+        String body = "Your car booking has been successfully processed!";
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -145,18 +143,17 @@ public class BookingView extends AppCompatActivity {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    channelId,
-                    "High Priority Notifications",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            channel.setDescription("This channel is used for high-priority notifications.");
-            channel.enableLights(true);
-            channel.setLightColor(Color.RED);
-            channel.enableVibration(true);
-            notificationManager.createNotificationChannel(channel);
-        }
+        NotificationChannel channel = new NotificationChannel(
+                channelId,
+                "High Priority Notifications",
+                NotificationManager.IMPORTANCE_HIGH
+        );
+
+        channel.setDescription("This channel is used for high-priority notifications.");
+        channel.enableLights(true);
+        channel.setLightColor(Color.RED);
+        channel.enableVibration(true);
+        notificationManager.createNotificationChannel(channel);
 
         notificationManager.notify(0, notificationBuilder.build());
     }

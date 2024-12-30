@@ -3,19 +3,15 @@ package id.ac.binus.myapplication.views;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
@@ -57,7 +53,7 @@ public class EditCarView extends AppCompatActivity {
         int currentSeats = getIntent().getIntExtra("carSeats", 0);
         String currentTransmission = getIntent().getStringExtra("carTransmission");
         String currentLocation = getIntent().getStringExtra("carLocation");
-        double currentPrice = getIntent().getDoubleExtra("carPrice", 0.00);
+        double currentPrice = getIntent().getDoubleExtra("carPricePerDay", 0.00);
         String currentDesc = getIntent().getStringExtra("carDescription");
         ArrayList<String> currentRules = getIntent().getStringArrayListExtra("carRules");
 
@@ -73,12 +69,9 @@ public class EditCarView extends AppCompatActivity {
         carDescriptionEditText.setText(currentDesc);
         carRulesEditText.setText(convertedRules);
 
-        editCarBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EditCarView.this, CarListingsView.class);
-                startActivity(intent);
-            }
+        editCarBackBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(EditCarView.this, CarListingsView.class);
+            startActivity(intent);
         });
 
         editCarBtn.setOnClickListener(view -> {
@@ -97,6 +90,7 @@ public class EditCarView extends AppCompatActivity {
             editCarErrorLbl.setText(message);
 
             if (message.equals("Car edited successfully!")) {
+                editCarErrorLbl.setTextColor(Color.parseColor("#454B1B"));
                 Intent intent = new Intent(EditCarView.this, CarListingsView.class);
                 intent.putExtra("username", prefs.getString("username", "NONE"));
                 Toast.makeText(this, "Car updated successfully!", Toast.LENGTH_SHORT).show();
