@@ -2,6 +2,7 @@ package id.ac.binus.myapplication.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import id.ac.binus.myapplication.R;
@@ -19,13 +19,13 @@ import id.ac.binus.myapplication.views.EditCarView;
 
 public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
-    private ArrayList<Car> cars;
+    private List<Car> cars; // Use List for flexibility
     private Context context;
     private String username;
     private OnCarDeletedListener onCarDeletedListener;
 
-    public CarAdapter(ArrayList<Car> cars, Context context, String username) {
-        this.cars = cars;
+    public CarAdapter(List<Car> cars, Context context, String username) {
+        this.cars = cars; // Do not make a copy here
         this.context = context;
         this.username = username;
     }
@@ -38,10 +38,15 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
         this.onCarDeletedListener = listener;
     }
 
+    public void updateCars(List<Car> updatedCars) {
+        this.cars.clear();
+        this.cars.addAll(updatedCars);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public CarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflate the item layout
         View view = LayoutInflater.from(context).inflate(R.layout.car_item, parent, false);
         return new CarViewHolder(view, context, username);
     }
@@ -55,11 +60,19 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
         holder.carBrand.setText(carName);
         holder.carPricePerDay.setText("From Rp. " + car.getPricePerDay() + "/day");
         holder.availability.setText(car.getAvailability());
+
+        if (holder.availability.getText().equals("Not Available")) {
+            holder.availability.setTextColor(Color.parseColor("#FF0000"));
+        } else {
+            holder.availability.setTextColor(Color.parseColor("#00FF00")); // Optional
+        }
+
         holder.bind(car);
 
         holder.deleteCarBtn.setOnClickListener(view -> {
-            if (onCarDeletedListener != null) {
-                onCarDeletedListener.onCarDeleted(holder.getAdapterPosition());
+            int currentPosition = holder.getAdapterPosition();
+            if (currentPosition != RecyclerView.NO_POSITION && onCarDeletedListener != null) {
+                onCarDeletedListener.onCarDeleted(currentPosition);
             }
         });
 

@@ -1,9 +1,7 @@
 package id.ac.binus.myapplication.views;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,26 +17,24 @@ import java.util.ArrayList;
 
 import id.ac.binus.myapplication.R;
 
-public class CarDetailsView extends AppCompatActivity {
+public class BookingDetailsView extends AppCompatActivity {
 
     ImageButton backBtn;
-    Button bookNowBtn;
     ImageView carImgDetail;
     TextView carNameDetail, carHostDetail, carLocationDetail, carPriceDetail,
-             carDescriptionDetail, carSeatsDetail, carTransmissionDetail, carRulesDetail;
+            carDescriptionDetail, carSeatsDetail, carTransmissionDetail, carRulesDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_car_details_view);
+        setContentView(R.layout.activity_booking_details_view);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        bookNowBtn = findViewById(R.id.bookNowBtn);
         backBtn = findViewById(R.id.backBtn);
 
         String carId = getIntent().getStringExtra("carId");
@@ -76,23 +72,5 @@ public class CarDetailsView extends AppCompatActivity {
         carRulesDetail.setText(carRules);
 
         backBtn.setOnClickListener(view -> finish());
-
-        SharedPreferences prefs = getSharedPreferences("EZDriveApp", MODE_PRIVATE);
-        String username = prefs.getString("username", "NONE");
-
-        if(username.equalsIgnoreCase("admin")){
-            bookNowBtn.setVisibility(View.GONE);
-        }
-
-        bookNowBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(CarDetailsView.this, BookingView.class);
-            intent.putExtra("carId", carId);
-            intent.putExtra("carName", carName);
-            intent.putExtra("carHost", carHost);
-            intent.putExtra("carLocation", carLocation);
-            intent.putExtra("carPrice", carActualPrice);
-
-            startActivity(intent);
-        });
     }
 }

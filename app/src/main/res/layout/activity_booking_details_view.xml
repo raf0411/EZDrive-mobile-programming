@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d6d7d7"
+    tools:context=".views.CarDetailsView">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/backBtn"
+            android:contentDescription="TODO"
+            android:src="@drawable/back_arrow_icon" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/mitsubishi_xpander"
+            android:layout_height="250dp"
+            android:id="@+id/carImgDetail" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/carNameDetail"
+            android:text="Car Brand Name"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:fontFamily="@font/poppins_regular"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="Hosted by Username"
+            android:id="@+id/carHostDetail"
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="Pick up Location :"
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:text="Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan,
+Kec. Pinang, Kota Tangerang, Banten 15143"
+            android:textColor="#696565"
+            android:id="@+id/carLocationDetail"
+            android:fontFamily="@font/poppins_regular"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:id="@+id/carPriceDetail"
+            android:text="Price : Rp. 400.000/day"
+            android:layout_marginTop="10dp"
+            android:textColor="#696565"
+            android:fontFamily="@font/poppins_regular"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/carDescriptionDetail"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:text="Kijang Innova Zenix is the best for cozy and eco-friendly
+Accelerate your Journey with Remarkable Efficiency!"
+            android:fontFamily="@font/poppins_regular"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seats - 7 Seats"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/carSeatsDetail"
+            android:fontFamily="@font/poppins_regular"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transmission - Automatic"
+            android:layout_marginHorizontal="30dp"
+            android:id="@+id/carTransmissionDetail"
+            android:fontFamily="@font/poppins_regular"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rules: No smoking, No Pets."
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/carRulesDetail"
+            android:fontFamily="@font/poppins_regular"/>
+    </LinearLayout>
+</ScrollView>

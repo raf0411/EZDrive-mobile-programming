@@ -2,6 +2,7 @@ package id.ac.binus.myapplication.controllers;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import id.ac.binus.myapplication.models.Booking;
@@ -11,6 +12,10 @@ public class BookingController {
 
     public BookingController() {
 
+    }
+
+    public ArrayList<Booking> getAllBookings(Context context, String userId){
+        return booking.getAllBookings(context, userId);
     }
 
     public String validateCarBooking(Context context, Calendar startDate, Calendar endDate, String userId,

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginHorizontal="30dp"
+    android:layout_marginBottom="10dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginVertical="16dp"
+    android:background="@drawable/rounded_corner_background">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/carBookingImgData"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/mitsubishi_xpander"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carBookingNameData"
+        android:text="Car Name"
+        android:layout_marginLeft="10dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins_regular"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carBookingPriceData"
+        android:text="From Rp. Car Price/day"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carAvailabilityData"
+        android:text="Booked"
+        android:textColor="#AF3306"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Booked Date"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carBookStartDate"
+        android:text="From  : "
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carBookEndDate"
+        android:text="To    : "
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carBookTotalPrice"
+        android:text="Total Price   : "
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"/>
+</LinearLayout>

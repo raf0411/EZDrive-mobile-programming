@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import id.ac.binus.myapplication.database.DatabaseHelper;
 import id.ac.binus.myapplication.models.Car;
 
 public class CarController {
@@ -14,8 +15,12 @@ public class CarController {
 
     }
 
-    public ArrayList<Car> getAllCars(Context context){
-        return car.getAllCars(context);
+    public ArrayList<Car> getCarsByRole(Context context, String username){
+        return car.getCarsByRole(context, username);
+    }
+
+    public Car getCarByCarId(Context context, String carId){
+        return car.getCarByCarId(context, carId);
     }
 
     public void deleteCar(Context context, String carId){
@@ -25,7 +30,6 @@ public class CarController {
     public String addCar(Context context, String carBrand, String carModel, String carHost,
                          int carSeats, String carTransmission, String carLocation,
                          double carPrice, String carDescription, String carRules){
-
         if(carBrand.isEmpty()){
             return "Car Brand is empty!";
         } else if(carModel.isEmpty()){

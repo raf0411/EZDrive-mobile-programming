@@ -38,20 +38,13 @@ public class CarViewHolder extends RecyclerView.ViewHolder {
         this.editCarBtn = itemView.findViewById(R.id.editCarBtn);
         this.deleteCarBtn = itemView.findViewById(R.id.deleteCarBtn);
 
-        if (!username.equalsIgnoreCase("Admin")) {
+        if (!username.equalsIgnoreCase("admin")) {
             editCarBtn.setVisibility(View.GONE);
             deleteCarBtn.setVisibility(View.GONE);
         }
     }
 
     public void bind(Car car) {
-        String carName = car.getBrand() + " " + car.getModel();
-
-        carImg.setImageResource(car.getCarImg());
-        carBrand.setText(carName);
-        carPricePerDay.setText("From Rp. " + car.getPricePerDay() + "/day");
-        availability.setText(car.getAvailability());
-
         itemView.setOnClickListener(v -> {
             Intent intent = new Intent(itemView.getContext(), CarDetailsView.class);
 

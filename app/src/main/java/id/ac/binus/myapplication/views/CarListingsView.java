@@ -30,7 +30,7 @@ import id.ac.binus.myapplication.models.User;
 public class CarListingsView extends AppCompatActivity {
     TextView usernameTV, notAvailableTV;
     RecyclerView carRecyclerView;
-    ImageButton bookingHistoryBtn, addCarBtn, deleteCarBtn, editCarBtn;
+    ImageButton bookingHistoryBtn, addCarBtn;
     UserController userController = new UserController();
     CarController carController = new CarController();
 
@@ -58,20 +58,20 @@ public class CarListingsView extends AppCompatActivity {
         User user = userController.getUserByUsername(CarListingsView.this, username);
         usernameTV.setText(username);
 
-        if (!user.getUsername().equalsIgnoreCase("Admin")) {
+        if (!user.getUsername().equalsIgnoreCase("admin")) {
             addCarBtn.setVisibility(View.GONE);
         }
 
-        ArrayList<Car> cars = carController.getAllCars(this);
+        ArrayList<Car> cars = carController.getCarsByRole(this, user.getUsername());
 
-        if (cars.isEmpty()) {
+        if (cars == null || cars.isEmpty()) {
             carRecyclerView.setVisibility(View.GONE);
             notAvailableTV.setVisibility(View.VISIBLE);
         } else {
             carRecyclerView.setVisibility(View.VISIBLE);
             notAvailableTV.setVisibility(View.GONE);
 
-            CarAdapter carAdapter = new CarAdapter(cars, this, username);
+            CarAdapter carAdapter = new CarAdapter(new ArrayList<>(cars), this, username);
             carRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             carRecyclerView.setAdapter(carAdapter);
 

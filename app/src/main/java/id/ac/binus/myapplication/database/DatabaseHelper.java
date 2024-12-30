@@ -7,9 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
 
 import id.ac.binus.myapplication.models.Booking;
@@ -56,8 +58,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "startDate TEXT, " +
                 "endDate TEXT, " +
                 "totalPrice REAL, " +
-                "FOREIGN KEY (userId) REFERENCES " + TABLE_USERS + "(userId), " +
-                "FOREIGN KEY (carId) REFERENCES " + TABLE_CARS + "(carId))";
+                "FOREIGN KEY (userId) REFERENCES " + TABLE_USERS + "(userId) ON DELETE CASCADE, " +
+                "FOREIGN KEY (carId) REFERENCES " + TABLE_CARS + "(carId) ON DELETE CASCADE)";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -131,12 +133,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void deleteCar(String carId){
-        System.out.println("Deleting");
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_CARS, "carId = ?", new String[]{carId});
         db.close();
     }
-
 
     public long addBooking(Booking booking) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -150,12 +150,95 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         statement.clearBindings();
         statement.bindString(1, booking.getBookingId());
         statement.bindString(2, booking.getUserId());
-        statement.bindString(3, booking.getCarid());
+        statement.bindString(3, booking.getCarId());
         statement.bindString(4, startDateFormatted);
         statement.bindString(5, endDateFormatted);
         statement.bindDouble(6, booking.getTotalPrice());
 
         return statement.executeInsert();
+    }
+
+    public Car getCarByCarId(String carId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Car car = null;
+
+        String query = "SELECT * FROM Cars WHERE carId = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{carId});
+
+        if (cursor.moveToFirst()) {
+            String carID = cursor.getString(cursor.getColumnIndexOrThrow("carId"));
+            String carBrand = cursor.getString(cursor.getColumnIndexOrThrow("carBrand"));
+            String carModel = cursor.getString(cursor.getColumnIndexOrThrow("carModel"));
+            String hostName = cursor.getString(cursor.getColumnIndexOrThrow("hostName"));
+            String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
+            int seats = cursor.getInt(cursor.getColumnIndexOrThrow("seats"));
+            String transmission = cursor.getString(cursor.getColumnIndexOrThrow("transmission"));
+            String rules = cursor.getString(cursor.getColumnIndexOrThrow("rules"));
+            double pricePerDay = cursor.getDouble(cursor.getColumnIndexOrThrow("pricePerDay"));
+            String availability = cursor.getString(cursor.getColumnIndexOrThrow("availability"));
+            int carImg = cursor.getInt(cursor.getColumnIndexOrThrow("carImg"));
+            ArrayList<String> convertedRules = new ArrayList<>(Arrays.asList(rules.split(",")));
+
+            car = new Car(carImg, carID, carBrand, hostName, location, description, seats, transmission, carModel, pricePerDay, availability, convertedRules);
+        }
+
+        cursor.close();
+        return car;
+    }
+
+    public ArrayList<Booking> getAllBookings(String userId) {
+        ArrayList<Booking> bookings = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT Users.userId, Cars.carId, Cars.carBrand, Cars.carModel, Cars.pricePerDay, " +
+                    "Bookings.startDate, Bookings.endDate, Bookings.totalPrice " +
+                    "FROM Bookings " +
+                    "INNER JOIN Cars ON Bookings.carId = Cars.carId " +
+                    "INNER JOIN Users ON Bookings.userId = Users.userId " +
+                    "WHERE Bookings.userId = ?";
+
+            cursor = db.rawQuery(query, new String[]{userId});
+
+            if (cursor.moveToFirst()) {
+                do {
+                    String carId = cursor.getString(cursor.getColumnIndexOrThrow("carId"));
+                    String carBrand = cursor.getString(cursor.getColumnIndexOrThrow("carBrand"));
+                    String carModel = cursor.getString(cursor.getColumnIndexOrThrow("carModel"));
+                    String carName = carBrand + " " + carModel;
+                    double pricePerDay = cursor.getDouble(cursor.getColumnIndexOrThrow("pricePerDay"));
+                    String startDate = cursor.getString(cursor.getColumnIndexOrThrow("startDate"));
+                    String endDate = cursor.getString(cursor.getColumnIndexOrThrow("endDate"));
+                    double totalPrice = cursor.getDouble(cursor.getColumnIndexOrThrow("totalPrice"));
+
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    Date convertedStartDate = null;
+                    Date convertedEndDate = null;
+
+                    try {
+                        convertedStartDate = formatter.parse(startDate);
+                        convertedEndDate = formatter.parse(endDate);
+                    } catch (ParseException e) {
+                        System.out.println("Error Converting Booking Date!");
+                    }
+
+                    Booking booking = new Booking(carId, carName, pricePerDay, convertedStartDate, convertedEndDate, totalPrice);
+                    bookings.add(booking);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            System.out.println("Error Converting Booking Date!");
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return bookings;
     }
 
     public ArrayList<User> getAllUsers(){
@@ -177,10 +260,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return users;
     }
 
-    public ArrayList<Car> getAllCars(){
+    @SuppressLint("Recycle")
+    public ArrayList<Car> getCarsByRole(String username){
         ArrayList<Car> cars = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM Cars", null);
+        @SuppressLint("Recycle")
+        Cursor cursor;
+
+        if(username.equalsIgnoreCase("admin")){
+            cursor = db.rawQuery("SELECT * FROM Cars", null);
+        } else{
+            cursor = db.rawQuery("SELECT * FROM Cars WHERE availability = 'Available'", null);
+        }
 
         if(cursor.moveToFirst()){
             do {
@@ -224,10 +315,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < DATABASE_VERSION) { // Adjust based on the changes
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_CARS);
-            db.execSQL(CREATE_TABLE_CARS);
-        }
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BOOKINGS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CARS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        onCreate(db);
     }
 
 }

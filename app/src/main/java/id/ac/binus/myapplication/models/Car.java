@@ -76,6 +76,11 @@ public class Car {
         }
     }
 
+    public Car getCarByCarId(Context context, String carId){
+        db = new DatabaseHelper(context);
+        return db.getCarByCarId(carId);
+    }
+
     public void deleteCar(Context context, String carId){
         db = new DatabaseHelper(context);
         db.deleteCar(carId);
@@ -95,9 +100,9 @@ public class Car {
         }
     }
 
-    public ArrayList<Car> getAllCars(Context context){
+    public ArrayList<Car> getCarsByRole(Context context, String username){
         db = new DatabaseHelper(context);
-        return db.getAllCars();
+        return db.getCarsByRole(username);
     }
 
     public String getCarId() {
