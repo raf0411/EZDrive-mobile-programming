@@ -1,8 +1,12 @@
 package id.ac.binus.myapplication.views;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,22 +15,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.io.ByteArrayOutputStream;
+
 import id.ac.binus.myapplication.R;
 import id.ac.binus.myapplication.controllers.CarController;
 
 public class AddCarView extends AppCompatActivity {
 
-    ImageButton addCarBackBtn;
+    private byte[] selectedImageBytes = null;
+    ImageButton addCarBackBtn, addCarImgBtn;
     EditText carBrandEditText, carModelEditText, carHostEditText, carSeatsEditText,
             carTransmissionEditText, carLocationEditText, carPriceEditText, carDescriptionEditText, carRulesEditText;
     Button addCarBtn;
     CarController carController = new CarController();
     TextView addCarErrorLbl;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +49,7 @@ public class AddCarView extends AppCompatActivity {
         });
 
         addCarBackBtn = findViewById(R.id.addCarBackBtn);
+        addCarImgBtn = findViewById(R.id.addCarImgBtn);
         carBrandEditText = findViewById(R.id.carBrandEditText);
         carModelEditText = findViewById(R.id.carModelEditText);
         carHostEditText = findViewById(R.id.carHostEditText);
@@ -51,10 +62,7 @@ public class AddCarView extends AppCompatActivity {
         addCarBtn = findViewById(R.id.addCarBtn);
         addCarErrorLbl = findViewById(R.id.addCarErrorLbl);
 
-        addCarBackBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(AddCarView.this, CarListingsView.class);
-            startActivity(intent);
-        });
+        addCarBackBtn.setOnClickListener(view -> finish());
 
         addCarBtn.setOnClickListener(view -> {
             String carBrand = carBrandEditText.getText().toString();
@@ -68,7 +76,13 @@ public class AddCarView extends AppCompatActivity {
             String carRules = carRulesEditText.getText().toString();
             SharedPreferences prefs = getSharedPreferences("EZDriveApp", MODE_PRIVATE);
 
-            String message = carController.addCar(AddCarView.this, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
+            if (selectedImageBytes == null) {
+                addCarErrorLbl.setText("Please select an image for the car!");
+                addCarErrorLbl.setTextColor(Color.RED);
+                return;
+            }
+
+            String message = carController.addCar(AddCarView.this, selectedImageBytes, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
             addCarErrorLbl.setText(message);
 
             if(addCarErrorLbl.getText().equals("Car added successfully!")){
@@ -79,5 +93,40 @@ public class AddCarView extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        addCarImgBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(intent, 101);
+        });
+    }
+
+    private Bitmap getBitmapFromBytes(byte[] imageBytes) {
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101 && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            try {
+                assert imageUri != null;
+                Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+
+                selectedImageBytes = getImageBytes(bitmap);
+                addCarImgBtn.setImageBitmap(getBitmapFromBytes(selectedImageBytes));
+
+                Toast.makeText(this, "Car Image selected successfully!", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(this, "Failed to load image!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private byte[] getImageBytes(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
     }
 }

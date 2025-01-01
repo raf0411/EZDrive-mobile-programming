@@ -48,6 +48,7 @@ public class BookingHistoryView extends AppCompatActivity {
 
         ArrayList<Booking> bookings = bookingController.getAllBookings(this, userId);
 
+        System.out.println("BOOKINGS: " + bookings);
         if(bookings.isEmpty()){
             noBookingsTV.setVisibility(View.VISIBLE);
             bookingHistoryList.setVisibility(View.GONE);

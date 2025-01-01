@@ -3,7 +3,10 @@ package id.ac.binus.myapplication.views;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,8 +14,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import id.ac.binus.myapplication.R;
@@ -20,7 +25,8 @@ import id.ac.binus.myapplication.controllers.CarController;
 
 public class EditCarView extends AppCompatActivity {
 
-    ImageButton editCarBackBtn;
+    private byte[] selectedImageBytes = null;
+    ImageButton editCarBackBtn, editCarImgBtn;
     EditText carBrandEditText, carModelEditText, carHostEditText, carSeatsEditText,
              carTransmissionEditText, carLocationEditText, carPriceEditText, carDescriptionEditText, carRulesEditText;
     Button editCarBtn;
@@ -34,6 +40,7 @@ public class EditCarView extends AppCompatActivity {
         setContentView(R.layout.activity_edit_car_view);
 
         editCarBackBtn = findViewById(R.id.editCarBackbtn);
+        editCarImgBtn = findViewById(R.id.editCarImgBtn);
         carBrandEditText = findViewById(R.id.carBrandEditText);
         carModelEditText = findViewById(R.id.carModelEditText);
         carHostEditText = findViewById(R.id.carHostEditText);
@@ -53,7 +60,7 @@ public class EditCarView extends AppCompatActivity {
         int currentSeats = getIntent().getIntExtra("carSeats", 0);
         String currentTransmission = getIntent().getStringExtra("carTransmission");
         String currentLocation = getIntent().getStringExtra("carLocation");
-        double currentPrice = getIntent().getDoubleExtra("carPricePerDay", 0.00);
+        double currentPrice = getIntent().getDoubleExtra("carPricePerDay", 0.);
         String currentDesc = getIntent().getStringExtra("carDescription");
         ArrayList<String> currentRules = getIntent().getStringArrayListExtra("carRules");
 
@@ -69,10 +76,7 @@ public class EditCarView extends AppCompatActivity {
         carDescriptionEditText.setText(currentDesc);
         carRulesEditText.setText(convertedRules);
 
-        editCarBackBtn.setOnClickListener(view -> {
-            Intent intent = new Intent(EditCarView.this, CarListingsView.class);
-            startActivity(intent);
-        });
+        editCarBackBtn.setOnClickListener(view -> finish());
 
         editCarBtn.setOnClickListener(view -> {
             String newCarBrand = carBrandEditText.getText().toString();
@@ -86,7 +90,7 @@ public class EditCarView extends AppCompatActivity {
             String newCarRules = carRulesEditText.getText().toString();
             SharedPreferences prefs = getSharedPreferences("EZDriveApp", MODE_PRIVATE);
 
-            String message = carController.editCar(EditCarView.this, carId, newCarBrand, newCarModel, newCarHost, newCarSeats, newCarTransmission, newCarLocation, newCarPrice, newCarDescription, newCarRules);
+            String message = carController.editCar(EditCarView.this, selectedImageBytes, carId, newCarBrand, newCarModel, newCarHost, newCarSeats, newCarTransmission, newCarLocation, newCarPrice, newCarDescription, newCarRules);
             editCarErrorLbl.setText(message);
 
             if (message.equals("Car edited successfully!")) {
@@ -97,5 +101,40 @@ public class EditCarView extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        editCarImgBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            startActivityForResult(intent, 101);
+        });
+    }
+
+    private Bitmap getBitmapFromBytes(byte[] imageBytes) {
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101 && resultCode == RESULT_OK && data != null) {
+            Uri imageUri = data.getData();
+            try {
+                assert imageUri != null;
+                Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+
+                selectedImageBytes = getImageBytes(bitmap);
+                editCarImgBtn.setImageBitmap(getBitmapFromBytes(selectedImageBytes));
+
+                Toast.makeText(this, "Car Image selected successfully!", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(this, "Failed to load image!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private byte[] getImageBytes(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
     }
 }

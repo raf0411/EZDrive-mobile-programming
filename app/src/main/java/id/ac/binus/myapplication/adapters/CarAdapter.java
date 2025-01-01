@@ -2,6 +2,8 @@ package id.ac.binus.myapplication.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +21,13 @@ import id.ac.binus.myapplication.views.EditCarView;
 
 public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
-    private final List<Car> cars; // Use List for flexibility
+    private final List<Car> cars;
     private final Context context;
     private final String username;
     private OnCarDeletedListener onCarDeletedListener;
 
     public CarAdapter(List<Car> cars, Context context, String username) {
-        this.cars = cars; // Do not make a copy here
+        this.cars = cars;
         this.context = context;
         this.username = username;
     }
@@ -45,13 +47,18 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
         return new CarViewHolder(view, username);
     }
 
+    private Bitmap getBitmapFromBytes(byte[] imageBytes) {
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
         Car car = cars.get(position);
         String carName = car.getBrand() + " " + car.getModel();
         String carPrice = "From Rp. " + car.getPricePerDay() + "/day";
+        Bitmap carImg = getBitmapFromBytes(car.getCarImg());
 
-        holder.carImg.setImageResource(car.getCarImg());
+        holder.carImg.setImageBitmap(carImg);
         holder.carBrand.setText(carName);
         holder.carPricePerDay.setText(carPrice);
         holder.availability.setText(car.getAvailability());
@@ -75,7 +82,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
             Intent intent = new Intent(context, EditCarView.class);
 
             intent.putExtra("carId", car.getCarId());
-            intent.putExtra("carImg", car.getCarImg());
+            intent.putExtra("carImg", carImg);
             intent.putExtra("carBrand", car.getBrand());
             intent.putExtra("carModel", car.getModel());
             intent.putExtra("carHost", car.getHostName());

@@ -8,12 +8,12 @@ public class RandomIDGenerator {
         StringBuilder id = new StringBuilder();
 
         for (int i = 0; i < 3; i++) {
-            char randomChar = (char) ('A' + random.nextInt(26)); // Random letter between A and Z
+            char randomChar = (char) ('A' + random.nextInt(26));
             id.append(randomChar);
         }
 
         for (int i = 0; i < 2; i++) {
-            int randomDigit = random.nextInt(10); // Random number between 0 and 9
+            int randomDigit = random.nextInt(10);
             id.append(randomDigit);
         }
 

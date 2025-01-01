@@ -34,7 +34,7 @@ import id.ac.binus.myapplication.controllers.BookingController;
 
 public class BookingView extends AppCompatActivity {
 
-    private final static double TAX = 160000.00; // Rp. 160.000
+    private final static double TAX = 160000.0;
     BookingController bookingController = new BookingController();
     double totalRentalPrice;
 

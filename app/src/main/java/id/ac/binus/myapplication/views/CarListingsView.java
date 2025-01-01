@@ -1,6 +1,8 @@
 package id.ac.binus.myapplication.views;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -27,7 +29,7 @@ import id.ac.binus.myapplication.models.User;
 public class CarListingsView extends AppCompatActivity {
     TextView usernameTV, notAvailableTV;
     RecyclerView carRecyclerView;
-    ImageButton bookingHistoryBtn, addCarBtn;
+    ImageButton bookingHistoryBtn, addCarBtn, profileImgBtn;
     UserController userController = new UserController();
     CarController carController = new CarController();
 
@@ -44,6 +46,7 @@ public class CarListingsView extends AppCompatActivity {
         });
 
         usernameTV = findViewById(R.id.usernameTV);
+        profileImgBtn = findViewById(R.id.profileImgBtn);
         notAvailableTV = findViewById(R.id.notAvailableTV);
         addCarBtn = findViewById(R.id.addCarBtn);
         bookingHistoryBtn = findViewById(R.id.bookingHistoryBtn);
@@ -54,6 +57,7 @@ public class CarListingsView extends AppCompatActivity {
         String username = getIntent().getStringExtra("username");
         User user = userController.getUserByUsername(CarListingsView.this, username);
         usernameTV.setText(username);
+        profileImgBtn.setImageBitmap(getBitmapFromBytes(user.getUserImg()));
 
         if (!user.getUsername().equalsIgnoreCase("admin")) {
             addCarBtn.setVisibility(View.GONE);
@@ -80,6 +84,11 @@ public class CarListingsView extends AppCompatActivity {
             });
         }
 
+        profileImgBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(CarListingsView.this, ProfilePageView.class);
+            startActivity(intent);
+        });
+
         addCarBtn.setOnClickListener(view -> {
             Intent intent = new Intent(CarListingsView.this, AddCarView.class);
             startActivity(intent);
@@ -89,5 +98,9 @@ public class CarListingsView extends AppCompatActivity {
             Intent intent = new Intent(CarListingsView.this, BookingHistoryView.class);
             startActivity(intent);
         });
+    }
+
+    private Bitmap getBitmapFromBytes(byte[] imageBytes) {
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
     }
 }

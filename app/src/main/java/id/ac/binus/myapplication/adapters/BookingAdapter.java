@@ -2,6 +2,8 @@ package id.ac.binus.myapplication.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,25 +34,19 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingViewHolder> {
         return new BookingViewHolder(view);
     }
 
+    private Bitmap getBitmapFromBytes(byte[] imageBytes) {
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+    }
+
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull BookingViewHolder holder, int position) {
         Booking booking = bookings.get(position);
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Bitmap carImg = getBitmapFromBytes(booking.getCarImg());
 
-        if(booking.getCarName().contains("Toyota")){
-            holder.carImg.setImageResource(R.drawable.toyota_kijang_innova_zenix);
-        } else if(booking.getCarName().contains("Mitsubishi")){
-            holder.carImg.setImageResource(R.drawable.mitsubishi_xpander);
-        } else if(booking.getCarName().contains("Tesla")){
-            holder.carImg.setImageResource(R.drawable.tesla);
-        } else if(booking.getCarName().contains("Honda")){
-            holder.carImg.setImageResource(R.drawable.honda_brv);
-        } else{
-            holder.carImg.setImageResource(R.drawable.empty_car_img);
-        }
-
+        holder.carImg.setImageBitmap(carImg);
         holder.carName.setText(booking.getCarName());
         holder.carPricePerDay.setText("From Rp. " + booking.getCarPricePerDay() + " / day");
         holder.carBookStartDate.setText("From  : " + sdf.format(booking.getStartDate()));

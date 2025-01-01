@@ -2,6 +2,8 @@ package id.ac.binus.myapplication.views;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +44,8 @@ public class CarDetailsView extends AppCompatActivity {
         backBtn = findViewById(R.id.backBtn);
 
         String carId = getIntent().getStringExtra("carId");
-        int carImg = getIntent().getIntExtra("carImg", 0);
+        String imagePath = getIntent().getStringExtra("carImgPath");
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
         String carName = getIntent().getStringExtra("carBrand") + " " + getIntent().getStringExtra("carModel");
         String carHost = "Hosted by " + getIntent().getStringExtra("carHost");
         String carLocation = getIntent().getStringExtra("carLocation");
@@ -65,7 +68,7 @@ public class CarDetailsView extends AppCompatActivity {
         carTransmissionDetail = findViewById(R.id.carTransmissionDetail);
         carRulesDetail = findViewById(R.id.carRulesDetail);
 
-        carImgDetail.setImageResource(carImg);
+        carImgDetail.setImageBitmap(bitmap);
         carNameDetail.setText(carName);
         carHostDetail.setText(carHost);
         carLocationDetail.setText(carLocation);
@@ -91,7 +94,6 @@ public class CarDetailsView extends AppCompatActivity {
             intent.putExtra("carHost", carHost);
             intent.putExtra("carLocation", carLocation);
             intent.putExtra("carPrice", carActualPrice);
-
             startActivity(intent);
         });
     }

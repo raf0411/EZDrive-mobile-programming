@@ -18,8 +18,6 @@ import com.google.firebase.messaging.RemoteMessage;
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
-//    private static final String TAG = "MyFirebaseMsgService";
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         if (remoteMessage.getNotification()!=null){

@@ -25,10 +25,12 @@ public class CarController {
         car.deleteCar(context, carId);
     }
 
-    public String addCar(Context context, String carBrand, String carModel, String carHost,
+    public String addCar(Context context, byte[] carImg, String carBrand, String carModel, String carHost,
                          int carSeats, String carTransmission, String carLocation,
                          double carPrice, String carDescription, String carRules){
-        if(carBrand.isEmpty()){
+        if(carImg == null){
+            return "Car Image is empty!";
+        } else if(carBrand.isEmpty()){
             return "Car Brand is empty!";
         } else if(carModel.isEmpty()){
             return "Car Model is empty!";
@@ -49,15 +51,16 @@ public class CarController {
         } else if(carRules.isEmpty()){
             return "Car rules is empty!";
         } else {
-            return car.addCar(context, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
+            return car.addCar(context, carImg, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
         }
     }
 
-    public String editCar(Context context, String carId, String carBrand, String carModel, String carHost,
+    public String editCar(Context context, byte[] carImg, String carId, String carBrand, String carModel, String carHost,
                          int carSeats, String carTransmission, String carLocation,
                          double carPrice, String carDescription, String carRules){
-
-        if(carBrand.isEmpty()){
+        if(carImg == null || carImg.length == 0){
+            return "Car Image is empty!";
+        } else if(carBrand.isEmpty()){
             return "Car Brand is empty!";
         } else if(carModel.isEmpty()){
             return "Car Model is empty!";
@@ -78,7 +81,7 @@ public class CarController {
         } else if(carRules.isEmpty()){
             return "Car rules is empty!";
         } else {
-            return car.editCar(context, carId, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
+            return car.editCar(context, carImg, carId, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
         }
     }
 }

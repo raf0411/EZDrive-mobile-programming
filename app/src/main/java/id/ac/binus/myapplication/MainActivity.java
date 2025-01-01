@@ -3,6 +3,7 @@ package id.ac.binus.myapplication;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.CursorWindow;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,16 +14,23 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.lang.reflect.Field;
+
+import id.ac.binus.myapplication.controllers.UserController;
+import id.ac.binus.myapplication.models.User;
 import id.ac.binus.myapplication.views.LoginView;
 
 public class MainActivity extends AppCompatActivity {
 
     Button startNowBtn;
+    User user = new User();
 
     private final ActivityResultLauncher<String> resultLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -41,7 +49,14 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        User checkAdmin = user.getUserByUsername(this,"admin");
+
+        if(checkAdmin == null){
+            user.register(this, "admin", "admin@email.com", "admin");
+        }
+
         requestPermission();
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

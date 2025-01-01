@@ -11,6 +11,7 @@ import id.ac.binus.myapplication.utils.RandomIDGenerator;
 
 public class Booking {
     private String bookingId;
+    private byte[] carImg;
     private String userId;
     private String carId;
     private Date startDate;
@@ -32,7 +33,8 @@ public class Booking {
         this.totalPrice = totalPrice;
     }
 
-    public Booking(String carId, String carName, double carPricePerDay, Date startDate, Date endDate, double totalPrice){
+    public Booking(byte[] carImg, String carId, String carName, double carPricePerDay, Date startDate, Date endDate, double totalPrice){
+        this.carImg = carImg;
         this.carId = carId;
         this.carName = carName;
         this.carPricePerDay = carPricePerDay;
@@ -89,6 +91,10 @@ public class Booking {
 
     public Date getEndDate() {
         return endDate;
+    }
+
+    public byte[] getCarImg() {
+        return carImg;
     }
 
     public double getTotalPrice() {

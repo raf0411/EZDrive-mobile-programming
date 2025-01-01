@@ -20,7 +20,7 @@ import id.ac.binus.myapplication.models.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "EZDriveDB";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
 
     public static final String TABLE_USERS = "Users";
     public static final String TABLE_CARS = "Cars";
@@ -29,10 +29,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_USERS =
             "CREATE TABLE " + TABLE_USERS + " (" +
                     "userId TEXT PRIMARY KEY, " +
+                    "userImg BLOB NOT NULL, " +
                     "username TEXT NOT NULL, " +
                     "email TEXT UNIQUE NOT NULL, " +
                     "password TEXT UNIQUE NOT NULL, " +
-                    "token TEXT NOT NULL)";
+                    "token TEXT NOT NULL, " +
+                    "phoneNumber TEXT NOT NULL, " +
+                    "city TEXT NOT NULL, " +
+                    "country TEXT NOT NULL)";
 
     private static final String CREATE_TABLE_CARS =
             "CREATE TABLE " + TABLE_CARS + " (" +
@@ -47,8 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "carBrand TEXT NOT NULL, " +
                     "pricePerDay DECIMAL NOT NULL, " +
                     "availability TEXT NOT NULL, " +
-                    "carImg INT NOT NULL)";
-
+                    "carImg BLOB NOT NULL)";
 
     private static final String CREATE_TABLE_BOOKINGS =
                 "CREATE TABLE " + TABLE_BOOKINGS + " (" +
@@ -75,10 +78,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("userId", user.getUserId());
+        cv.put("userImg", user.getUserImg());
         cv.put("username", user.getUsername());
         cv.put("email", user.getEmail());
         cv.put("password", user.getPassword());
         cv.put("token", user.getToken());
+        cv.put("phoneNumber", user.getPhoneNumber());
+        cv.put("city", user.getCity());
+        cv.put("country", user.getCountry());
 
         long result = db.insert(TABLE_USERS, null, cv);
         db.close();
@@ -110,12 +117,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public long editCar(String carId, String carBrand, String carModel, String carHost,
+    public long editCar(String carId, byte[] carImg, String carBrand, String carModel, String carHost,
                         int carSeats, String carTransmission, String carLocation,
                         double carPrice, String carDescription, String carRules){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
+        cv.put("carImg", carImg);
         cv.put("carBrand", carBrand);
         cv.put("carModel", carModel);
         cv.put("hostName", carHost);
@@ -127,6 +135,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put("rules", carRules);
 
         long result = db.update("Cars", cv, "carId = ?", new String[]{carId});
+        db.close();
+
+        return result;
+    }
+
+    public long editProfile(String userId, byte[] userImg, String username,
+                            String email, String phoneNumber, String city, String country){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("userImg", userImg);
+        cv.put("username", username);
+        cv.put("email", email);
+        cv.put("phoneNumber", phoneNumber);
+        cv.put("city", city);
+        cv.put("country", country);
+
+        long result = db.update("Users", cv, "userId = ?", new String[]{userId});
         db.close();
 
         return result;
@@ -177,7 +203,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String rules = cursor.getString(cursor.getColumnIndexOrThrow("rules"));
             double pricePerDay = cursor.getDouble(cursor.getColumnIndexOrThrow("pricePerDay"));
             String availability = cursor.getString(cursor.getColumnIndexOrThrow("availability"));
-            int carImg = cursor.getInt(cursor.getColumnIndexOrThrow("carImg"));
+            byte[] carImg = cursor.getBlob(cursor.getColumnIndexOrThrow("carImg"));
             ArrayList<String> convertedRules = new ArrayList<>(Arrays.asList(rules.split(",")));
 
             car = new Car(carImg, carID, carBrand, hostName, location, description, seats, transmission, carModel, pricePerDay, availability, convertedRules);
@@ -193,7 +219,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
 
         try {
-            String query = "SELECT Users.userId, Cars.carId, Cars.carBrand, Cars.carModel, Cars.pricePerDay, " +
+            String query = "SELECT Users.userId, Cars.carId, Cars.carImg, Cars.carBrand, Cars.carModel, Cars.pricePerDay, " +
                     "Bookings.startDate, Bookings.endDate, Bookings.totalPrice " +
                     "FROM Bookings " +
                     "INNER JOIN Cars ON Bookings.carId = Cars.carId " +
@@ -204,6 +230,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             if (cursor.moveToFirst()) {
                 do {
+                    byte[] carImg = cursor.getBlob(cursor.getColumnIndexOrThrow("carImg"));
                     String carId = cursor.getString(cursor.getColumnIndexOrThrow("carId"));
                     String carBrand = cursor.getString(cursor.getColumnIndexOrThrow("carBrand"));
                     String carModel = cursor.getString(cursor.getColumnIndexOrThrow("carModel"));
@@ -225,7 +252,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         System.out.println("Error Converting Booking Date!");
                     }
 
-                    Booking booking = new Booking(carId, carName, pricePerDay, convertedStartDate, convertedEndDate, totalPrice);
+                    Booking booking = new Booking(carImg, carId, carName, pricePerDay, convertedStartDate, convertedEndDate, totalPrice);
                     bookings.add(booking);
                 } while (cursor.moveToNext());
             }
@@ -248,12 +275,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             do {
+
                 String userId = cursor.getString(cursor.getColumnIndexOrThrow("userId"));
                 String username = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+                byte[] userImg = cursor.getBlob(cursor.getColumnIndexOrThrow("userImg"));
+                String phoneNumber = cursor.getString(cursor.getColumnIndexOrThrow("phoneNumber"));
+                String country = cursor.getString(cursor.getColumnIndexOrThrow("country"));
+                String city = cursor.getString(cursor.getColumnIndexOrThrow("city"));
                 String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
                 String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+                String token = cursor.getString(cursor.getColumnIndexOrThrow("token"));
 
-                users.add(new User(userId, username, email, password));
+                users.add(new User(userId, userImg, username, password, phoneNumber, city, country, email, token));
             } while (cursor.moveToNext());
         }
 
@@ -276,7 +309,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do {
                 String carId = cursor.getString(cursor.getColumnIndexOrThrow("carId"));
-                int carImg = cursor.getInt(cursor.getColumnIndexOrThrow("carImg"));
+                byte[] carImg = cursor.getBlob(cursor.getColumnIndexOrThrow("carImg"));
                 String carBrand = cursor.getString(cursor.getColumnIndexOrThrow("carBrand"));
                 String carModel = cursor.getString(cursor.getColumnIndexOrThrow("carModel"));
                 String hostName = cursor.getString(cursor.getColumnIndexOrThrow("hostName"));

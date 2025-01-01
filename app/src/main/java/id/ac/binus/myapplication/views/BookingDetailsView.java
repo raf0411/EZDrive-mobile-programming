@@ -1,5 +1,7 @@
 package id.ac.binus.myapplication.views;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,7 +22,7 @@ public class BookingDetailsView extends AppCompatActivity {
     ImageButton backBtn;
     ImageView carImgDetail;
     TextView carNameDetail, carHostDetail, carLocationDetail, carPriceDetail,
-            carDescriptionDetail, carSeatsDetail, carTransmissionDetail, carRulesDetail;
+             carDescriptionDetail, carSeatsDetail, carTransmissionDetail, carRulesDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +36,12 @@ public class BookingDetailsView extends AppCompatActivity {
         });
 
         backBtn = findViewById(R.id.backBtn);
-
-        int carImg = getIntent().getIntExtra("carImg", 0);
+        String imagePath = getIntent().getStringExtra("carImg");
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
         String carName = getIntent().getStringExtra("carBrand") + " " + getIntent().getStringExtra("carModel");
         String carHost = "Hosted by " + getIntent().getStringExtra("carHost");
         String carLocation = getIntent().getStringExtra("carLocation");
-        String carPrice = "Price: Rp." + getIntent().getDoubleExtra("carPricePerDay", 0.00) + " / day";
+        String carPrice = "Price: Rp." + getIntent().getDoubleExtra("carPricePerDay", 0) + " / day";
         String carDescription = getIntent().getStringExtra("carDescription");
         String carSeats = "Seats - " + getIntent().getIntExtra("carSeats", 0);
         String carTransmission = "Transmission - " + getIntent().getStringExtra("carTransmission");
@@ -57,7 +59,7 @@ public class BookingDetailsView extends AppCompatActivity {
         carTransmissionDetail = findViewById(R.id.carTransmissionDetail);
         carRulesDetail = findViewById(R.id.carRulesDetail);
 
-        carImgDetail.setImageResource(carImg);
+        carImgDetail.setImageBitmap(bitmap);
         carNameDetail.setText(carName);
         carHostDetail.setText(carHost);
         carLocationDetail.setText(carLocation);

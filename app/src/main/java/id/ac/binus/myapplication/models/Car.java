@@ -5,12 +5,11 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import id.ac.binus.myapplication.R;
 import id.ac.binus.myapplication.database.DatabaseHelper;
 import id.ac.binus.myapplication.utils.RandomIDGenerator;
 
 public class Car {
-    private int carImg;
+    private byte[] carImg;
     private String carId;
     private String brand;
     private String hostName;
@@ -28,7 +27,7 @@ public class Car {
 
     }
 
-    public Car(int carImg, String carId, String brand, String hostName, String location, String description, int seats, String transmission, String model, double pricePerDay, String availability, ArrayList<String> rules) {
+    public Car(byte[] carImg, String carId, String brand, String hostName, String location, String description, int seats, String transmission, String model, double pricePerDay, String availability, ArrayList<String> rules) {
         this.carImg = carImg;
         this.carId = carId;
         this.brand = brand;
@@ -48,7 +47,7 @@ public class Car {
         db.updateCarStatus(carId);
     }
 
-    public String addCar(Context context, String carBrand, String carModel, String carHost,
+    public String addCar(Context context, byte[] carImg, String carBrand, String carModel, String carHost,
                          int carSeats, String carTransmission, String carLocation,
                          double carPrice, String carDescription, String carRules){
         db = new DatabaseHelper(context);
@@ -57,15 +56,7 @@ public class Car {
 
         ArrayList<String> rules = new ArrayList<>(Arrays.asList(carRules.split(",")));
 
-        if(carBrand.equalsIgnoreCase("Toyota")){
-            car = new Car(R.drawable.toyota_kijang_innova_zenix, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);
-        } else if(carBrand.equalsIgnoreCase("Mitsubishi")){
-            car = new Car(R.drawable.mitsubishi_xpander, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);
-        } else if(carBrand.equalsIgnoreCase("Honda")){
-            car = new Car(R.drawable.honda_brv, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);
-        } else {
-            car = new Car(R.drawable.tesla, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);
-        }
+        car = new Car(carImg, carId, carBrand, carHost, carLocation, carDescription, carSeats, carTransmission, carModel, carPrice, "Available", rules);
 
         long result = db.addCar(car);
 
@@ -86,12 +77,12 @@ public class Car {
         db.deleteCar(carId);
     }
 
-    public String editCar(Context context, String carId, String carBrand, String carModel, String carHost,
+    public String editCar(Context context, byte[] carImg, String carId, String carBrand, String carModel, String carHost,
                           int carSeats, String carTransmission, String carLocation,
                           double carPrice, String carDescription, String carRules){
         db = new DatabaseHelper(context);
 
-        long result = db.editCar(carId, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
+        long result = db.editCar(carId, carImg, carBrand, carModel, carHost, carSeats, carTransmission, carLocation, carPrice, carDescription, carRules);
 
         if(result != -1){
             return "Car edited successfully!";
@@ -130,7 +121,7 @@ public class Car {
         return availability;
     }
 
-    public int getCarImg() {
+    public byte[] getCarImg() {
         return carImg;
     }
 

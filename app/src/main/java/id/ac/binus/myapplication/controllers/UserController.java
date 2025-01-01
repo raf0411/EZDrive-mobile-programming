@@ -55,4 +55,42 @@ public class UserController {
             return user.register(context, username, email, password);
         }
     }
+
+    public String validateUpdateProfile(Context context, String userId, byte[] userImg, String username, String email, String phoneNumber, String city, String country){
+        String message;
+        if(userImg == null){
+            message = "Profile picture is empty!";
+            return message;
+        } else if(username.isEmpty()){
+            message = "Username can't be empty!";
+            return message;
+        } else if(username.length() < 3){
+            message = "Username must at least be 3 characters!";
+            return message;
+        } else if(email.isEmpty()){
+            message = "Email can't be empty!";
+            return message;
+        } else if(!email.contains("@")){
+            message = "Email must be a valid one!";
+            return message;
+        } else if(!email.endsWith(".com")){
+            message = "Email must be a valid one!";
+            return message;
+        } else if (phoneNumber.isEmpty()) {
+            message = "Phone Number is empty!";
+            return message;
+        } else if(city.isEmpty()){
+            message = "City is empty!";
+            return message;
+        } else if(country.isEmpty()){
+            message = "Country is empty!";
+            return message;
+        } else {
+            return user.updateProfile(context, userId, userImg, username, email, phoneNumber, city, country);
+        }
+    }
+
+    public User getUserByUserId(Context context, String userId){
+        return user.getUserByUserId(context, userId);
+    }
 }

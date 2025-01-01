@@ -16,12 +16,15 @@
         android:layout_margin="20dp"
         android:weightSum="1">
 
-        <ImageView
+        <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/profileImgData"
+            android:id="@+id/profileImgBtn"
+            android:background="@drawable/rounded_profile_img"
             android:src="@drawable/profile_img"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginEnd="16dp"
+            android:scaleType="centerCrop" />
+
 
         <LinearLayout
             android:orientation="vertical"
