@@ -20,6 +20,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/backBtn"
+            android:background="#d6d7d7"
             android:src="@drawable/back_arrow_icon" />
 
         <ImageView
