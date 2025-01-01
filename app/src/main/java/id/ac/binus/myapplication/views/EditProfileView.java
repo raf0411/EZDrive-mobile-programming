@@ -116,7 +116,7 @@ public class EditProfileView extends AppCompatActivity {
                 selectedImageBytes = getImageBytes(bitmap);
                 editProfileImgBtn.setImageBitmap(getBitmapFromBytes(selectedImageBytes));
 
-                Toast.makeText(this, "Car Image selected successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Profile Image selected successfully!", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Toast.makeText(this, "Failed to load image!", Toast.LENGTH_SHORT).show();
             }
