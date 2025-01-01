@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/editProfileImgBtn"
+        android:background="#d6d7d7"
         android:src="@drawable/edit_profile_image_btn" />
 
     <TextView
