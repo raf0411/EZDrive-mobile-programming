@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import id.ac.binus.myapplication.R;
@@ -51,6 +54,20 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
         return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
     }
 
+    private String saveBitmapToInternalStorage(Bitmap bitmap) {
+        try {
+            File file = new File(context.getFilesDir(), "car_image_" + System.currentTimeMillis() + ".jpg");
+            FileOutputStream fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+            return file.getAbsolutePath();
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+
     @Override
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
         Car car = cars.get(position);
@@ -82,7 +99,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
             Intent intent = new Intent(context, EditCarView.class);
 
             intent.putExtra("carId", car.getCarId());
-            intent.putExtra("carImg", carImg);
+            String carImgPath = saveBitmapToInternalStorage(carImg);
+            intent.putExtra("carImgPath", carImgPath);
             intent.putExtra("carBrand", car.getBrand());
             intent.putExtra("carModel", car.getModel());
             intent.putExtra("carHost", car.getHostName());

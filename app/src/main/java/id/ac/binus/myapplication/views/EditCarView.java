@@ -63,6 +63,11 @@ public class EditCarView extends AppCompatActivity {
         double currentPrice = getIntent().getDoubleExtra("carPricePerDay", 0.);
         String currentDesc = getIntent().getStringExtra("carDescription");
         ArrayList<String> currentRules = getIntent().getStringArrayListExtra("carRules");
+        String carImgPath = getIntent().getStringExtra("carImgPath");
+        if (carImgPath != null) {
+            Bitmap carImg = BitmapFactory.decodeFile(carImgPath);
+            editCarImgBtn.setImageBitmap(carImg);
+        }
 
         String convertedRules = (currentRules != null) ? String.join(",", currentRules) : "";
 
