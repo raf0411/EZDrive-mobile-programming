@@ -7,13 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.BookingHistoryView"
-    android:background="#d6d7d7">
+    android:background="@color/white">
 
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/backBtn"
-        android:background="#d6d7d7"
+        android:background="@color/white"
         android:src="@drawable/back_arrow_icon" />
 
     <TextView
