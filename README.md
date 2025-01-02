@@ -1,7 +1,7 @@
 # 🚗 EZDrive
 This Repo contains codes for EZDrive, a car rental app as a Final Project for Course Mobile Programming
 
-## 📝 Why EZDrive?
+## 📝 What is EZDrive?
 The main goal of this app is to provide a simple and user-friendly platform for renting cars and managing bookings, tailored specifically for users in Indonesia. 
 
 Currently, there is a lack of dedicated car rental apps in Indonesia, making it difficult for users to find, book, and manage car rentals efficiently. 
