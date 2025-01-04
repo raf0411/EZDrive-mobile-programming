@@ -1,4 +1,4 @@
-![Home-Page](https://github.com/user-attachments/assets/b9b417c9-0d99-4ad2-94d0-40cf9734b9b5)# 🚗 EZDrive
+# 🚗 EZDrive
 This Repo contains codes for EZDrive, a car rental app as a Final Project for Course Mobile Programming
 
 ## 📝 What is EZDrive?
