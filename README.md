@@ -22,6 +22,7 @@ This app bridges that gap by offering a straightforward solution to browse avail
 ![Starting Page](https://i.ibb.co/98rDrQn/Start-Page.png)
 ![Login Page](https://i.ibb.co/PtB4vSW/Login-Page.png)
 ![Home Page](https://i.ibb.co/NprqCZ3/Home-Page.png)
+![Car Details](https://i.ibb.co/dW3qkr0/Car-Page.png)
 
 ## ⚙️ Tools
 * Android Studio
