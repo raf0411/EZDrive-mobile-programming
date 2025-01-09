@@ -71,6 +71,12 @@ public class BookingView extends AppCompatActivity {
         taxData = findViewById(R.id.taxData);
         totalRentalPriceData = findViewById(R.id.totalRentalPrice);
 
+        startDateInput.init(startDateInput.getYear(), startDateInput.getMonth(), startDateInput.getDayOfMonth(),
+                (view, year, monthOfYear, dayOfMonth) -> updatePaymentDetails());
+
+        endDateInput.init(endDateInput.getYear(), endDateInput.getMonth(), endDateInput.getDayOfMonth(),
+                (view, year, monthOfYear, dayOfMonth) -> updatePaymentDetails());
+
         carNameBooking.setText(getIntent().getStringExtra("carName"));
         carHostBooking.setText(getIntent().getStringExtra("carHost"));
         carPriceBooking.setText(stringPrice);
@@ -78,24 +84,14 @@ public class BookingView extends AppCompatActivity {
 
         backBtn.setOnClickListener(view -> finish());
 
+        if (isDatePicked(startDateInput) && isDatePicked(endDateInput)) {
+            updatePaymentDetails();
+        }
+
         processPaymentBtn.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                long totalDays = calculateDays();
-
-                if (totalDays == 0){
-                    totalDays = 1;
-                }
-
-                double subTotal = price * Double.parseDouble(String.valueOf(totalDays));
-                totalRentalPrice = subTotal + TAX;
-
-                totalDaysData.setText("Total days: " + totalDays);
-                subTotalPriceData.setText("Subtotal: Rp." + subTotal);
-                taxData.setText("Tax: Rp." + TAX);
-                totalRentalPriceData.setText("Total Rental Price: Rp." + totalRentalPrice);
-
                 SharedPreferences prefs = getSharedPreferences("EZDriveApp", MODE_PRIVATE);
                 String carId = getIntent().getStringExtra("carId");
                 String userId = prefs.getString("userId", "NONE");
@@ -115,6 +111,32 @@ public class BookingView extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean isDatePicked(DatePicker datePicker) {
+        Calendar today = Calendar.getInstance();
+        Calendar selectedDate = Calendar.getInstance();
+        selectedDate.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth());
+
+        return selectedDate.after(today) || selectedDate.equals(today);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void updatePaymentDetails() {
+        double price = getIntent().getDoubleExtra("carPrice", 0.00);
+        long totalDays = calculateDays();
+
+        if (totalDays == 0){
+            totalDays = 1;
+        }
+
+        double subTotal = price * totalDays;
+        totalRentalPrice = subTotal + TAX;
+
+        totalDaysData.setText("Total days: " + totalDays);
+        subTotalPriceData.setText("Subtotal: Rp." + subTotal);
+        taxData.setText("Tax: Rp." + TAX);
+        totalRentalPriceData.setText("Total Rental Price: Rp." + totalRentalPrice);
     }
 
     private void sendNotification() {
