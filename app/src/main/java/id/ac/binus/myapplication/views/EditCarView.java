@@ -64,8 +64,10 @@ public class EditCarView extends AppCompatActivity {
         String currentDesc = getIntent().getStringExtra("carDescription");
         ArrayList<String> currentRules = getIntent().getStringArrayListExtra("carRules");
         String carImgPath = getIntent().getStringExtra("carImgPath");
+
         if (carImgPath != null) {
             Bitmap carImg = BitmapFactory.decodeFile(carImgPath);
+            selectedImageBytes = getImageBytes(carImg);
             editCarImgBtn.setImageBitmap(carImg);
         }
 
