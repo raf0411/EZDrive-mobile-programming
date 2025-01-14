@@ -19,14 +19,14 @@ This app bridges that gap by offering a straightforward solution to browse avail
 * Timothy Ansell Setiadi (2602170745)
 * Raissa Raffi Darmawan (2602177146)
 
-## 🖼️ Designs
-![Starting Page](https://i.ibb.co/98rDrQn/Start-Page.png)
-![Login Page](https://i.ibb.co/PtB4vSW/Login-Page.png)
-![Home Page](https://i.ibb.co/NprqCZ3/Home-Page.png)
-![Car Details](https://i.ibb.co/dW3qkr0/Car-Page.png)
-
 ## ⚙️ Tools
 * Android Studio
 * Java
 * SQLite
 * Figma
+
+## 🖼️ Designs
+![Starting Page](https://i.ibb.co/98rDrQn/Start-Page.png)
+![Login Page](https://i.ibb.co/PtB4vSW/Login-Page.png)
+![Home Page](https://i.ibb.co/NprqCZ3/Home-Page.png)
+![Car Details](https://i.ibb.co/dW3qkr0/Car-Page.png)
