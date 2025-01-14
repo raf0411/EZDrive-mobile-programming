@@ -12,7 +12,7 @@ This app bridges that gap by offering a straightforward solution to browse avail
 * [Figma Design](https://www.figma.com/design/V9HOn3YNrZ1i9M8PdD3mP5/Mobprog-Project?node-id=0-1&p=f&t=nMDkZGU8DiWIHGZK-0)
 * [Documentation](https://docs.google.com/document/d/1WP_row9iqhcAnnwgdKZa3M26MMykuA3Wu5YglZIKMqM/edit?usp=sharing)
 * [Github](https://github.com/raf0411/EZDrive-MOBPROG)
-* [APK Link](https://binusianorg-my.sharepoint.com/personal/raissa_darmawan_binus_ac_id/_layouts/15/guestaccess.aspx?share=Epj7IdlAv91Cq4abxYa1nl0BSRwemmZ8binIxia2cFW0xQ&e=Og7TRH)
+* [APK Link](https://binusianorg-my.sharepoint.com/personal/raissa_darmawan_binus_ac_id/_layouts/15/guestaccess.aspx?share=Eliw4QXdWBxKq5WvVc69NYcBAjB28ooOm6eKtDMTFImPrA&e=3O8ate)
 
 ## 🧑‍🤝‍🧑 Group
 * Jeremy Michael Puspowardojo (2602175544)
