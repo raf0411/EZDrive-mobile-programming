@@ -14,7 +14,7 @@ This app bridges that gap by offering a straightforward solution to browse avail
 * [Github](https://github.com/raf0411/EZDrive-MOBPROG)
 * [APK Link](https://binusianorg-my.sharepoint.com/personal/raissa_darmawan_binus_ac_id/_layouts/15/guestaccess.aspx?share=Eliw4QXdWBxKq5WvVc69NYcBAjB28ooOm6eKtDMTFImPrA&e=3O8ate)
 
-## 🧑‍🤝‍🧑 Group
+## 🧑‍🤝‍🧑 Group Members
 * Jeremy Michael Puspowardojo (2602175544)
 * Timothy Ansell Setiadi (2602170745)
 * Raissa Raffi Darmawan (2602177146)
